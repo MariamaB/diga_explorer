@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1080601975698",
+    "project_id": "digaexplorer",
+    "storage_bucket": "digaexplorer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080601975698:android:481404cbd1731a634eff4b",
+        "android_client_info": {
+          "package_name": "com.example.diga_explorer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080601975698-ifgmq71gkoriois3d3t97gm8qaul223a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcplEmZcuvUalXdTUTNUx490wZZj9Yb7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080601975698-ifgmq71gkoriois3d3t97gm8qaul223a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
