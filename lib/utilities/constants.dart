@@ -30,3 +30,9 @@ final kBoxDecorationStyle = BoxDecoration(
     ),
   ],
 );
+
+final headlinStyle = const TextStyle(
+  fontWeight: FontWeight.bold,
+  color: textColor,
+  fontSize: 18,
+);
