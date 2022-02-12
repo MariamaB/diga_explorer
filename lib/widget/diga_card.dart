@@ -15,9 +15,12 @@ class DiGACard extends StatelessWidget {
         // height: this.specification != null ? 185.0 : 158,
         child: Card(
             color: primaryColor,
-            elevation: 5.0,
+            elevation: 10.0,
+            shadowColor: highlightColor,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
+              side: BorderSide(width: 1.0, color: highlightColor),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             child: Container(
                 padding: EdgeInsets.all(10.0),
                 child: Column(
