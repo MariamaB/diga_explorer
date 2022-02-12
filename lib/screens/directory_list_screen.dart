@@ -1,6 +1,7 @@
 import 'package:diga_explorer/helper/helper.dart';
 import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/services/firestore_service.dart';
+import 'package:diga_explorer/utilities/constants.dart';
 import 'package:diga_explorer/widget/diga_card.dart';
 import 'package:flutter/material.dart';
 
@@ -55,29 +56,53 @@ class _DirectoryListState extends State<DirectoryList> {
     );
   }
 
+// BorderSide(color: accentColor)
   Widget myTextField(data) {
-    return TextField(
-      controller: myController,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          prefixIcon: IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              setState(() {
-                _diGAList = searchList(data, myController.text);
-              });
-            },
-          ),
-          suffixIcon: IconButton(
-            icon: Icon(Icons.clear),
-            onPressed: () {
-              setState(() {
-                _diGAList = firestoreService.getAllDiga();
-                myController.clear();
-              });
-            },
-          ),
-          hintText: 'Search...'),
-    );
+    return Material(
+        elevation: 10.0,
+        borderRadius: BorderRadius.circular(8.0),
+        shadowColor: highlightColor,
+        child: TextField(
+          controller: myController,
+          decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: accentColor, width: 3),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: accentColor, width: 2),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              fillColor: Colors.white,
+              filled: true,
+              prefixIcon: IconButton(
+                icon: Icon(
+                  Icons.clear,
+                  color: accentColor,
+                  size: 30,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _diGAList = searchList(data, myController.text);
+                  });
+                },
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  Icons.search_rounded,
+                  color: accentColor,
+                  size: 30,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _diGAList = firestoreService.getAllDiga();
+                    myController.clear();
+                  });
+                },
+              ),
+              hintText: 'Search...'),
+          cursorColor: accentColor,
+          style: TextStyle(color: Colors.black87),
+        ));
   }
 }
