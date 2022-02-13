@@ -13,7 +13,7 @@ class DiGAObject {
   String description;
   String deviceDefinitionReference;
   String chargeItemDefinitionReference;
-
+  bool inDashboard;
   DiGAObject(
       {this.name,
       this.id,
@@ -26,6 +26,7 @@ class DiGAObject {
       this.anwendungsDauer,
       this.indikations,
       this.kontraindikation,
+      this.inDashboard,
       this.description});
 
   Map<String, dynamic> toMap() {
@@ -38,6 +39,7 @@ class DiGAObject {
       'icon': icon,
       'description': description,
       'kontraindikation': kontraindikation,
+      'inDashboard': inDashboard,
       'platforms':
           platforms != null ? platforms.map((e) => e.toMap()).toList() : null,
       'indikations': indikations != null
@@ -58,6 +60,7 @@ class DiGAObject {
     directoryLink = json['directoryLink'];
     icon = json['icon'];
     description = json['description'];
+    inDashboard = json['inDashboard'];
     // if (json['diagnoseCodes'] != null)
     //   json['diagnoseCodes'].forEach((v) => diagnoseCodes.add(v));
     if (json['platforms'] != null)

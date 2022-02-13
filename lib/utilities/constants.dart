@@ -30,3 +30,18 @@ final kBoxDecorationStyle = BoxDecoration(
     ),
   ],
 );
+
+final headlinStyle = const TextStyle(
+  fontWeight: FontWeight.bold,
+  color: textColor,
+  fontSize: 18,
+);
+final dCodeTextStyle = const TextStyle(
+  fontWeight: FontWeight.bold,
+  color: accentColor,
+  fontSize: 15,
+);
+final dDisplayTextStyle = const TextStyle(
+  color: textColor,
+  fontSize: 15,
+);

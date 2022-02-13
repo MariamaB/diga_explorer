@@ -2,6 +2,7 @@ class DoctorObject {
   String id;
   String name;
   String image;
+  String icon;
   String tel;
   List<Platform> platforms;
   String fachrichtung;
@@ -10,6 +11,7 @@ class DoctorObject {
       {this.name,
       this.id,
       this.image,
+      this.icon,
       this.tel,
       this.platforms,
       this.fachrichtung});
@@ -19,6 +21,7 @@ class DoctorObject {
       'id': id,
       'name': name,
       'image': image,
+      'icon': icon,
       'tel': tel,
       'fachrichtung': fachrichtung,
       'platforms':
@@ -31,6 +34,7 @@ class DoctorObject {
     name = json['name'];
     id = json['id'];
     image = json['image'];
+    icon = json['icon'];
     tel = json['tel'];
     fachrichtung = json['fachrichtung'];
     if (json['platforms'] != null)
