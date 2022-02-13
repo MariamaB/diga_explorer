@@ -2,6 +2,7 @@ import 'package:diga_explorer/custom_icons.dart' as CustomIcon;
 import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DiGACard extends StatelessWidget {
   const DiGACard({Key key, this.diga}) : super(key: key);
@@ -72,7 +73,7 @@ class DiGACard extends StatelessWidget {
                             )),
                       ],
                     ),
-                    buildButtonRow(),
+                    buildButtonRow(diga.directoryLink),
                   ],
                 ))));
   }
@@ -152,7 +153,7 @@ class DiGACard extends StatelessWidget {
     return diagnoseR;
   }
 
-  Widget buildButtonRow() {
+  Widget buildButtonRow(String url) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -163,7 +164,13 @@ class DiGACard extends StatelessWidget {
                   TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
               backgroundColor: MaterialStateProperty.all<Color>(accentColor),
               fixedSize: MaterialStateProperty.all<Size>(Size(270, 40))),
-          onPressed: () {},
+          onPressed: () async {
+            if (await canLaunch(url))
+              await launch(url);
+            else
+              // can't launch url, there is some error
+              throw "Could not launch $url";
+          },
           child: const Text('Weitere Informationen zur DiGA'),
         ),
         IconButton(
@@ -173,7 +180,12 @@ class DiGACard extends StatelessWidget {
             size: 40,
           ),
           tooltip: 'Füge die DiGA deinem Dashboard hinzu.',
-          onPressed: () {},
+          onPressed: () {
+            diga.inDashboard =
+                diga.inDashboard != null || diga.inDashboard == false
+                    ? true
+                    : false;
+          },
         ),
         SizedBox(
           width: 1,

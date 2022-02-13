@@ -1,6 +1,6 @@
 import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/models/response_body.dart';
-import 'package:diga_explorer/screens/directory_list_screen.dart';
+import 'package:diga_explorer/screens/doctors_list_screen.dart';
 import 'package:diga_explorer/screens/home_screen.dart' show HomeScreen;
 import 'package:diga_explorer/screens/login_screen.dart';
 import 'package:diga_explorer/services/diga_service.dart';

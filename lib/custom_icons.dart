@@ -20,6 +20,10 @@
 ///         Author:    Dave Gandy
 ///         License:   SIL ()
 ///         Homepage:  http://fortawesome.github.com/Font-Awesome/
+/// * Fontelico, Copyright (C) 2012 by Fontello project
+///         Author:    Crowdsourced, for Fontello project
+///         License:   SIL (http://scripts.sil.org/OFL)
+///         Homepage:  http://fontello.com
 ///
 import 'package:flutter/widgets.dart';
 
@@ -47,6 +51,12 @@ class Custom {
       IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData plus_circled =
       IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData ok_circled =
+      IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData spin3 =
+      IconData(0xe832, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData spin4 =
+      IconData(0xe834, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData facebook =
       IconData(0xf09a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData user_md =
