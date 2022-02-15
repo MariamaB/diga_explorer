@@ -6,6 +6,7 @@ const primaryColor = Color(0xFF6883BC);
 const highlightColor = Color(0xFF79A7D3);
 const borderColor = Colors.black;
 const textColor = Colors.white;
+const kWhite = Colors.white;
 const hintTextColor = Colors.grey;
 
 final kHintTextStyle = TextStyle(

@@ -24,12 +24,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Widget _child;
+  Color _backgroundColor;
   List<DiGAObject> data;
 
   @override
   void initState() {
     super.initState();
     _child = HomeScreen();
+    _backgroundColor = highlightColor;
   }
 
   @override
@@ -44,7 +46,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(),
       home: Scaffold(
         appBar: appBarContent(context),
-        backgroundColor: highlightColor,
+        backgroundColor: _backgroundColor,
         body: Container(child: _child, margin: const EdgeInsets.all(10.0)),
         bottomNavigationBar: FluidNavBar(
           icons: [
@@ -87,6 +89,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _handleNavigationChange(int index) {
+    _backgroundColor = index == 2 ? primaryColor : highlightColor;
     setState(() {
       switch (index) {
         case 0:
