@@ -100,7 +100,7 @@ class _DirectoryListState extends State<DirectoryList> {
                   });
                 },
               ),
-              hintText: 'Search...'),
+              hintText: 'Gebe den ICD-10 Code oder Symptome ein...'),
           cursorColor: accentColor,
           style: TextStyle(color: Colors.black87),
         ));

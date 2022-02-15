@@ -1,4 +1,6 @@
+import 'package:diga_explorer/screens/directory_list_screen.dart';
 import 'package:diga_explorer/screens/doctors_list_screen.dart';
+import 'package:diga_explorer/screens/kv_list_screen.dart';
 import 'package:diga_explorer/utilities/constants.dart'
     show highlightColor, kDarkPurple, primaryColor;
 import 'package:flutter/material.dart';

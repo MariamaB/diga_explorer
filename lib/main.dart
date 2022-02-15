@@ -44,8 +44,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
           appBar: appBarContent(context),
           body:
-              // DirectoryList()
-              // body: LoginScreen(),
+              // LoginScreen(),
               HomeScreen()
           /*floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
