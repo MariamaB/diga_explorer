@@ -12,8 +12,9 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: highlightColor,
       body: Container(
         margin: const EdgeInsets.all(10.0),
+        child: Text("This is my Home"),
         // child: DirectoryList(),
-        child: DoctorList(),
+        // child: DoctorList(),
         // child: KrankenkasseList(),
       ),
     );

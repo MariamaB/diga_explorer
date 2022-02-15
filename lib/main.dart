@@ -1,16 +1,13 @@
 import 'package:diga_explorer/models/diga_object.dart';
-import 'package:diga_explorer/models/response_body.dart';
+import 'package:diga_explorer/screens/dashboard_list_screen.dart';
+import 'package:diga_explorer/screens/directory_list_screen.dart';
 import 'package:diga_explorer/screens/doctors_list_screen.dart';
 import 'package:diga_explorer/screens/home_screen.dart' show HomeScreen;
-import 'package:diga_explorer/screens/login_screen.dart';
-import 'package:diga_explorer/services/diga_service.dart';
-import 'package:diga_explorer/services/firestore_service.dart';
+import 'package:diga_explorer/screens/kv_list_screen.dart';
 import 'package:diga_explorer/utilities/constants.dart';
+import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-import 'helper/helper.dart';
-import 'models/diga_user.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,9 +23,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Widget _child;
+  List<DiGAObject> data;
+
   @override
   void initState() {
     super.initState();
+    _child = HomeScreen();
   }
 
   @override
@@ -42,19 +43,75 @@ class _MyAppState extends State<MyApp> {
       title: 'Diga Explorer',
       theme: ThemeData(),
       home: Scaffold(
-          appBar: appBarContent(context),
-          body:
-              // LoginScreen(),
-              HomeScreen()
-          /*floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),*/
-
-          // This trailing comma makes auto-formatting nicer for build methods.
+        appBar: appBarContent(context),
+        backgroundColor: highlightColor,
+        body: Container(child: _child, margin: const EdgeInsets.all(10.0)),
+        bottomNavigationBar: FluidNavBar(
+          icons: [
+            FluidNavBarIcon(
+                icon: Icons.home,
+                backgroundColor: accentColor,
+                extras: {"label": "home"}),
+            FluidNavBarIcon(
+                icon: Icons.account_circle,
+                backgroundColor: accentColor,
+                extras: {"label": "account"}),
+            FluidNavBarIcon(
+                icon: Icons.settings,
+                backgroundColor: accentColor,
+                extras: {"label": "settings"}),
+            FluidNavBarIcon(
+                icon: Icons.settings,
+                backgroundColor: accentColor,
+                extras: {"label": "settings"}),
+            FluidNavBarIcon(
+                icon: Icons.settings,
+                backgroundColor: accentColor,
+                extras: {"label": "settings"}),
+          ],
+          onChange: _handleNavigationChange,
+          style: const FluidNavBarStyle(
+              barBackgroundColor: kDarkPurple,
+              iconSelectedForegroundColor: primaryColor,
+              iconUnselectedForegroundColor: kDarkPurple),
+          scaleFactor: 1.5,
+          defaultIndex: 0,
+          itemBuilder: (icon, item) => Semantics(
+            label: icon.extras["label"],
+            child: item,
           ),
+        ),
+        // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
+  }
+
+  void _handleNavigationChange(int index) {
+    setState(() {
+      switch (index) {
+        case 0:
+          _child = HomeScreen();
+          break;
+        case 1:
+          _child = DirectoryList();
+          break;
+        case 2:
+          _child = const DashboardList();
+          break;
+        case 3:
+          _child = KrankenkasseList();
+          break;
+        case 4:
+          _child = DoctorList();
+          break;
+      }
+      _child = AnimatedSwitcher(
+        switchInCurve: Curves.easeOut,
+        switchOutCurve: Curves.easeIn,
+        duration: Duration(milliseconds: 500),
+        child: _child,
+      );
+    });
   }
 }
 

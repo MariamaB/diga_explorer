@@ -176,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
           'LOGIN',
           style: TextStyle(
             // color: accentColor,
-            color: const Color.fromRGBO(76, 60, 87, 1),
+            color: kDarkPurple,
             letterSpacing: 1.5,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
@@ -283,7 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   signUp(email, password) async {
     UserCredential authResult = await _authService.signupEmail(email, password);
-    print(authResult);
+    print(authResult.user);
   }
 
   signIn(email, password) async {
@@ -317,7 +317,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       colors: [
                         // primaryColor,
                         accentColor,
-                        const Color.fromRGBO(76, 60, 87, 1),
+                        kDarkPurple,
                       ],
                       stops: [0.0, 1.0],
                       tileMode: TileMode.clamp),
