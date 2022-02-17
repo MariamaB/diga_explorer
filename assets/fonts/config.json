@@ -137,6 +137,180 @@
       "css": "ok-circled",
       "code": 59401,
       "src": "fontawesome"
+    },
+    {
+      "uid": "e82cedfa1d5f15b00c5a81c9bd731ea2",
+      "css": "info-circled",
+      "code": 59402,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "3d4ea8a78dc34efe891f3a0f3d961274",
+      "css": "info",
+      "code": 61737,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "7e4164950ffa4990961958b2d6318658",
+      "css": "info-circled-1",
+      "code": 59403,
+      "src": "entypo"
+    },
+    {
+      "uid": "63b86fedd4ee9ad2105f54f4888e7088",
+      "css": "info-1",
+      "code": 59404,
+      "src": "entypo"
+    },
+    {
+      "uid": "a66a6e088038a1881d532b6675bf8412",
+      "css": "info-2",
+      "code": 59405,
+      "src": "modernpics"
+    },
+    {
+      "uid": "15ba51cbb4d05e6fb88f03a31a7c711c",
+      "css": "info-circled-alt",
+      "code": 61574,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "9725db89b610135dc76cd8a21afffa83",
+      "css": "search",
+      "code": 59406,
+      "src": "linecons"
+    },
+    {
+      "uid": "e45e9f27ce40ba9837cc984076d98067",
+      "css": "search-1",
+      "code": 59407,
+      "src": "elusive"
+    },
+    {
+      "uid": "ec21fe3492bb04d9e29103c319556ed8",
+      "css": "search-2",
+      "code": 62733,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "76c6288a7b904801376915d8ae2f700c",
+      "css": "search-3",
+      "code": 61442,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "9c18fb3010b707a55dcb0919162b6c8c",
+      "css": "speech_bubble",
+      "code": 60077,
+      "src": "rpgawesome"
+    },
+    {
+      "uid": "a9c8f3e9754168794768712a57926741",
+      "css": "newspaper",
+      "code": 61930,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "da0fd38d651815e3a12f6c030ff1fe5b",
+      "css": "newspaper-1",
+      "code": 59408,
+      "src": "entypo"
+    },
+    {
+      "uid": "56da5324fc5a04f131ab65668c36b931",
+      "css": "news",
+      "code": 59409,
+      "src": "typicons"
+    },
+    {
+      "uid": "f978da58836f23373882916f05fb70b4",
+      "css": "doc",
+      "code": 59410,
+      "src": "linecons"
+    },
+    {
+      "uid": "032bd8bbd70adf90ead98b6813bfe446",
+      "css": "newspaper-2",
+      "code": 59411,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "3327862df439988139b61814143b7a42",
+      "css": "cancel-circled",
+      "code": 59412,
+      "src": "typicons"
+    },
+    {
+      "uid": "517522647a556192fbc78aa391b7b0c2",
+      "css": "cancel-circled-outline",
+      "code": 59413,
+      "src": "typicons"
+    },
+    {
+      "uid": "1dq4tek4k8ea7zlj4kc3w83itnutaxg5",
+      "css": "cancel",
+      "code": 59414,
+      "src": "typicons"
+    },
+    {
+      "uid": "24aba8757d4a7b49568c98a577a85df3",
+      "css": "cancel-outline",
+      "code": 59415,
+      "src": "typicons"
+    },
+    {
+      "uid": "bf45c39702763f1803b550c36a0ceb12",
+      "css": "cancel-squared",
+      "code": 59416,
+      "src": "entypo"
+    },
+    {
+      "uid": "a08fa7e7a1ce22ec5c7988e6b5e975ee",
+      "css": "cancel-1",
+      "code": 59417,
+      "src": "material"
+    },
+    {
+      "uid": "5211af474d3a9848f67f945e2ccaf143",
+      "css": "cancel-2",
+      "code": 59418,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c709da589c923ba3c2ad48d9fc563e93",
+      "css": "cancel-3",
+      "code": 59419,
+      "src": "entypo"
+    },
+    {
+      "uid": "11e664deed5b2587456a4f9c01d720b6",
+      "css": "cancel-4",
+      "code": 59420,
+      "src": "iconic"
+    },
+    {
+      "uid": "rrhco7mfj6ro9yzhe4a1rbln9flw47re",
+      "css": "cancel-5",
+      "code": 59421,
+      "src": "modernpics"
+    },
+    {
+      "uid": "8da3ac534210aae9c0f0e13804c1df97",
+      "css": "cancel-6",
+      "code": 59422,
+      "src": "websymbols"
+    },
+    {
+      "uid": "15739f3032c2aa3df67efc96b3ffef56",
+      "css": "cancel-circle",
+      "code": 59423,
+      "src": "websymbols"
+    },
+    {
+      "uid": "499b745a2e2485bdd059c3a53d048e5f",
+      "css": "cancel-7",
+      "code": 59424,
+      "src": "elusive"
     }
   ]
 }

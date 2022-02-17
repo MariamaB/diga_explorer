@@ -28,7 +28,7 @@ class _DashboardListState extends State<DashboardList> {
         future: firestoreService.getAllDiga(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return Expanded(
+            return Container(
                 child: ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext ctxt, int index) =>

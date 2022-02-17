@@ -1,190 +1,193 @@
 import 'package:diga_explorer/custom_icons.dart' as CustomIcon;
+import 'package:diga_explorer/main.dart';
 import 'package:diga_explorer/models/diga_object.dart';
+import 'package:diga_explorer/screens/dashboard_diga_screen.dart';
+import 'package:diga_explorer/screens/doctors_list_screen.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DashboardCard extends StatelessWidget {
   const DashboardCard({Key key, this.diga}) : super(key: key);
-
   final DiGAObject diga;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    var url =
+        "https://github.com/MariamaB/diga_explorer/raw/master/assets/pdfs/DiGA-Verzeichnis_Novego.pdf";
+
+    return Column(crossAxisAlignment: CrossAxisAlignment.end,
         // height: 180,
         // height: this.specification != null ? 185.0 : 158,
-        child: Card(
-            color: primaryColor,
-            elevation: 10.0,
-            shadowColor: highlightColor,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(width: 1.0, color: highlightColor),
-              borderRadius: BorderRadius.circular(10.0),
+        children: [
+          SizedBox(
+            height: 10,
+            child: IconButton(
+              icon: const Icon(
+                CustomIcon.Custom.cancel_5,
+                color: accentColor,
+                size: 20,
+              ),
+              tooltip: 'Füge die DiGA deinem Dashboard hinzu.',
+              onPressed: () {
+                diga.inDashboard =
+                    diga.inDashboard != null || diga.inDashboard == false
+                        ? true
+                        : false;
+              },
             ),
-            child: Container(
-                padding: EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Divider(color: highlightColor),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            iconBuilder(diga.icon),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: platformIconBuilder(diga.platforms),
-                            )
-                          ],
+          ),
+          Container(
+              padding: EdgeInsets.all(10.0),
+              // color: highlightColor,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      iconBuilder(diga.icon, context),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                          padding: EdgeInsets.only(top: 10),
+                          height: 140,
+                          width: 180,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                  width: 170,
+                                  child: Text(
+                                    diga.name,
+                                    style: headlinStyle,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                  )),
+                              buildButtonRow(url, context),
+                            ],
+                          )),
+                    ],
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 8, bottom: 10),
+                    height: 1.0,
+                    decoration: BoxDecoration(
+                      color: accentColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: accentColor,
+                          spreadRadius: 0,
+                          blurRadius: 5,
+                          offset: Offset(0, 3), // changes position of shadow
                         ),
-                        SizedBox(
-                          width: 30,
-                        ),
-                        Container(
-                            alignment: Alignment.topLeft,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                    width: 190,
-                                    child: Text(
-                                      diga.name,
-                                      style: headlinStyle,
-                                      maxLines: 3,
-                                      // textAlign: TextAlign.justify,
-                                      overflow: TextOverflow.ellipsis,
-                                    )),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:
-                                      builderDiagnosRows(diga.indikations),
-                                )
-                              ],
-                            )),
                       ],
                     ),
-                    buildButtonRow(diga.directoryLink),
-                  ],
-                ))));
-  }
-
-  Widget iconBuilder(icon) {
-    return Container(
-        child: CircleAvatar(
-      radius: 35, // Image radius
-      backgroundImage: NetworkImage(icon),
-    ));
-  }
-
-  List<Widget> platformIconBuilder(List<Platform> platforms) {
-    List<Widget> platformsR = <Widget>[];
-    for (var item in platforms) {
-      platformsR.add(
-        (item.platform.toLowerCase().contains("ios"))
-            ? const Icon(
-                CustomIcon.Custom.apple,
-                color: Colors.white,
-              )
-            : (item.platform.toLowerCase().contains("android"))
-                ? const Icon(
-                    CustomIcon.Custom.android,
-                    color: Colors.white,
-                  )
-                : const Icon(
-                    CustomIcon.Custom.globe,
-                    color: Colors.white,
                   ),
-      );
-    }
-    return platformsR;
+                ],
+              ))
+        ]);
   }
 
-  List<Widget> builderDiagnosRows(List<DiagnoseCode> indikations) {
-    List<Widget> diagnoseR = <Widget>[];
-    List<DiagnoseCode> shownList = <DiagnoseCode>[];
-    for (var i = 0; i < 2; i++) {
-      shownList.add(indikations != null && indikations.length > 1
-          ? indikations[i]
-          : DiagnoseCode(
-              code: "M33",
-              display: "Bisher keine Indikationsinformation hinterlegt"));
-    }
-    diagnoseR.add(SizedBox(
-      height: 5,
-    ));
-    for (var item in shownList) {
-      diagnoseR.add(Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            item.code,
-            style: dCodeTextStyle,
-            overflow: TextOverflow.ellipsis,
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          SizedBox(
-            width: 190,
-            child: Text(
-              item.display,
-              style: dDisplayTextStyle,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 3,
+  Widget iconBuilder(icon, BuildContext context) {
+    return InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) {
+              // return MyApp(
+              //   view: kDashDetail,
+              //   diga: diga,
+              //   cxt: context,
+              // );
+              return DashboardDiGAScreen(diga: diga);
+
+              // DashboardDiGAScreen(diga: diga);
+            }),
+          );
+          //
+        },
+        child: Container(
+
+            // ignore: prefer_const_constructors
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: accentColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(5, 4), // changes position of shadow
+                ),
+              ],
             ),
-          )
-        ],
-      ));
-    }
-    return diagnoseR;
+            child: CircleAvatar(
+              backgroundColor: accentColor,
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(icon),
+                radius: 73,
+              ),
+              radius: 75, // Image
+            )));
   }
 
-  Widget buildButtonRow(String url) {
+  Widget buildButtonRow(String url, BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        ElevatedButton(
-          style: ButtonStyle(
-              textStyle: MaterialStateProperty.all<TextStyle>(
-                  TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-              backgroundColor: MaterialStateProperty.all<Color>(accentColor),
-              fixedSize: MaterialStateProperty.all<Size>(Size(270, 40))),
-          onPressed: () async {
-            if (await canLaunch(url))
-              await launch(url);
-            else
-              // can't launch url, there is some error
-              throw "Could not launch $url";
-          },
-          child: const Text('Weitere Informationen zur DiGA'),
-        ),
         IconButton(
-          icon: const Icon(
-            CustomIcon.Custom.plus_circled,
-            color: accentColor,
-            size: 40,
-          ),
-          tooltip: 'Füge die DiGA deinem Dashboard hinzu.',
-          onPressed: () {
-            diga.inDashboard =
-                diga.inDashboard != null || diga.inDashboard == false
-                    ? true
-                    : false;
-          },
-        ),
+            icon: const Icon(
+              CustomIcon.Custom.info_circled_1,
+              color: kWhite,
+              size: 40,
+            ),
+            tooltip: 'Mehr Informationen über diese DiGA',
+            onPressed: () async {
+              if (await canLaunch(diga.directoryLink))
+                await launch(diga.directoryLink);
+              else
+                // can't launch url, there is some error
+                throw "Could not launch $url";
+            }),
+        IconButton(
+            icon: const Icon(
+              CustomIcon.Custom.file_pdf,
+              color: kWhite,
+              size: 40,
+            ),
+            tooltip: 'Füge die DiGA deinem Dashboard hinzu.',
+            onPressed: () async {
+              if (await canLaunch(url))
+                await launch(url);
+              else
+                // can't launch url, there is some error
+                throw "Could not launch $url";
+            }),
+        IconButton(
+            icon: const Icon(
+              CustomIcon.Custom.user_md,
+              color: kWhite,
+              size: 40,
+            ),
+            tooltip: 'Füge die DiGA deinem Dashboard hinzu.',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  // return MyApp(
+                  //   view: "doc",
+                  //   diga: diga,
+                  //   cxt: context,
+                  // );
+                  return DoctorList();
+                }),
+              );
+            }),
         SizedBox(
           width: 1,
         )

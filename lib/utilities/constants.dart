@@ -46,3 +46,7 @@ final dDisplayTextStyle = const TextStyle(
   color: textColor,
   fontSize: 15,
 );
+
+final kDoc = "doc";
+final kDashDetail = "dashboardDetailView";
+final kKV = "krankenkassen";
