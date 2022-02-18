@@ -48,10 +48,18 @@
 ///         Author:    Just Be Nice studio
 ///         License:   SIL (http://scripts.sil.org/OFL)
 ///         Homepage:  http://www.justbenicestudio.com/
+/// * MFG Labs, Copyright (C) 2012 by Daniel Bruce
+///         Author:    MFG Labs
+///         License:   SIL (http://scripts.sil.org/OFL)
+///         Homepage:  http://www.mfglabs.com/
 /// * Fontelico, Copyright (C) 2012 by Fontello project
 ///         Author:    Crowdsourced, for Fontello project
 ///         License:   SIL (http://scripts.sil.org/OFL)
 ///         Homepage:  http://fontello.com
+/// * Linearicons Free, Copyright (C) Linearicons.com
+///         Author:    Perxis
+///         License:   CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+///         Homepage:  https://linearicons.com
 /// * RPG Awesome, Copyright (c) 2014, Daniela Howe
 ///         Author:    Daniela Howe & Ivan Montiel
 ///         License:   SIL (http://scripts.sil.org/OFL)
@@ -60,10 +68,10 @@
 ///         Author:    Dave Gandy
 ///         License:   SIL (https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt)
 ///         Homepage:  http://fortawesome.github.com/Font-Awesome/
-/// * MFG Labs, Copyright (C) 2012 by Daniel Bruce
-///         Author:    MFG Labs
-///         License:   SIL (http://scripts.sil.org/OFL)
-///         Homepage:  http://www.mfglabs.com/
+/// * Octicons, Copyright (C) 2020 by GitHub Inc.
+///         Author:    GitHub
+///         License:   MIT (http://opensource.org/licenses/mit-license.php)
+///         Homepage:  https://primer.style/octicons/
 ///
 import 'package:flutter/widgets.dart';
 
@@ -139,14 +147,42 @@ class Custom {
       IconData(0xe81f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData cancel_7 =
       IconData(0xe820, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData check =
+      IconData(0xe821, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData ok =
+      IconData(0xe822, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData check_2 =
+      IconData(0xe823, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData ok_1 =
+      IconData(0xe824, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData ok_2 =
+      IconData(0xe825, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData ok_3 =
+      IconData(0xe826, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData ok_circle =
+      IconData(0xe827, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home_outline =
+      IconData(0xe828, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home_1 =
+      IconData(0xe829, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home_2 =
+      IconData(0xe82a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home_3 =
+      IconData(0xe82b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData spin3 =
       IconData(0xe832, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData spin4 =
       IconData(0xe834, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData checkmark_cicle =
+      IconData(0xe87f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData speech_bubble =
       IconData(0xeaad, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData search_3 =
       IconData(0xf002, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData check_1 =
+      IconData(0xf00c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home =
+      IconData(0xf015, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData info_circled_alt =
       IconData(0xf086, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData facebook =
@@ -173,6 +209,14 @@ class Custom {
       IconData(0xf230, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData facebook_squared =
       IconData(0xf308, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData check_3 =
+      IconData(0xf369, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData medrt =
+      IconData(0xf3c8, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData search_2 =
       IconData(0xf50d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData comment_medical =
+      IconData(0xf7f5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData laptop_medical =
+      IconData(0xf812, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

@@ -311,6 +311,114 @@
       "css": "cancel-7",
       "code": 59424,
       "src": "elusive"
+    },
+    {
+      "uid": "83b1dd96a1760c9d049edbba9b96f2b2",
+      "css": "check",
+      "code": 59425,
+      "src": "material"
+    },
+    {
+      "uid": "12f4ece88e46abd864e40b35e05b11cd",
+      "css": "ok",
+      "code": 59426,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "3df557988823d031d4972feed89617f3",
+      "css": "check-1",
+      "code": 61452,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "14017aae737730faeda4a6fd8fb3a5f0",
+      "css": "check-2",
+      "code": 59427,
+      "src": "entypo"
+    },
+    {
+      "uid": "ce50292e85eb5d6ee3be61b32bf2bdf3",
+      "css": "ok-1",
+      "code": 59428,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "ce7452abce8b55ded1c393997a51e6b3",
+      "css": "ok-2",
+      "code": 59429,
+      "src": "elusive"
+    },
+    {
+      "uid": "157f2382d2c608c41d984c693174c83b",
+      "css": "ok-circle",
+      "code": 59431,
+      "src": "websymbols"
+    },
+    {
+      "uid": "e9f1a4ad968111eab72aacfdce5a3d9f",
+      "css": "check-3",
+      "code": 62313,
+      "src": "octicons"
+    },
+    {
+      "uid": "64bcd6ad71f61f13c4622c7506d583a2",
+      "css": "checkmark-cicle",
+      "code": 59519,
+      "src": "linearicons"
+    },
+    {
+      "uid": "7b16b22168e762c88333f465da862098",
+      "css": "ok-3",
+      "code": 59430,
+      "src": "websymbols"
+    },
+    {
+      "uid": "a42f298da5c64e646a5d532724cd6e15",
+      "css": "home-outline",
+      "code": 59432,
+      "src": "typicons"
+    },
+    {
+      "uid": "7472fe2c3787ab610355cddcf4e199ba",
+      "css": "home",
+      "code": 61461,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "w3nzesrlbezu6f30q7ytyq919p6gdlb6",
+      "css": "home-1",
+      "code": 59433,
+      "src": "typicons"
+    },
+    {
+      "uid": "d7271d490b71df4311e32cdacae8b331",
+      "css": "home-2",
+      "code": 59434,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "ca150bc10f3a816413c7687c59dbe118",
+      "css": "home-3",
+      "code": 59435,
+      "src": "material"
+    },
+    {
+      "uid": "8a9ed91476923d61a34e58b632880563",
+      "css": "laptop_medical",
+      "code": 63506,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "5b4be716f1546d025bad75e71f630141",
+      "css": "medrt",
+      "code": 62408,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "b2be2cf5a767e16c15c20f97eda60094",
+      "css": "comment_medical",
+      "code": 63477,
+      "src": "fontawesome5"
     }
   ]
 }

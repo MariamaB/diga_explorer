@@ -1,4 +1,4 @@
-import 'package:diga_explorer/helper/helper.dart';
+import 'package:diga_explorer/helper/diga_converter.dart';
 import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/widget/dashboard_card.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,5 @@
 import 'package:diga_explorer/data/docData.dart';
+import 'package:diga_explorer/helper/helperfunctions.dart';
 import 'package:diga_explorer/models/doctor_object.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:diga_explorer/widget/doctor_card.dart';
@@ -26,21 +27,28 @@ class _DoctorListState extends State<DoctorList> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Column(
-      children: [
-        myTextField(doctorList),
-        SizedBox(
-          height: 20.0,
-        ),
-        Expanded(
-            child: new ListView.builder(
-                itemCount: doctorList.length,
-                itemBuilder: (BuildContext ctxt, int index) {
-                  return DoctorCard(doctor: doctorList[index]);
-                }))
-      ],
-    ));
+    return Scaffold(
+        appBar: appBarContent(context),
+        backgroundColor: highlightColor,
+        body: Container(
+            padding: EdgeInsets.only(left: 15, right: 15, top: 20),
+            margin: EdgeInsets.only(top: 10),
+            child: Column(
+              children: [
+                pageHeadline("Finde deine Online-Arzt"),
+                buildCustomDivider(),
+                myTextField(doctorList),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Expanded(
+                    child: new ListView.builder(
+                        itemCount: doctorList.length,
+                        itemBuilder: (BuildContext ctxt, int index) {
+                          return DoctorCard(doctor: doctorList[index]);
+                        }))
+              ],
+            )));
   }
 
 // BorderSide(color: accentColor)

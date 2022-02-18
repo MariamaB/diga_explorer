@@ -50,7 +50,7 @@ class KVCard extends StatelessWidget {
                                     width: 190,
                                     child: Text(
                                       krankenkasse.name,
-                                      style: headlinStyle,
+                                      style: headlinStyleBold,
                                       maxLines: 3,
                                       // textAlign: TextAlign.justify,
                                       overflow: TextOverflow.ellipsis,

@@ -269,8 +269,7 @@ DiGAObject getQestionResponseData(Entry entryQuestionnaireResponse) {
   return diga;
 }
 
-Future<List<DiGAObject>> searchList(
-    List<DiGAObject> digaList, String searchTerm) async {
+List<DiGAObject> searchList(List<DiGAObject> digaList, String searchTerm) {
   List<DiGAObject> searchList = <DiGAObject>[];
   for (var item in digaList) {
     if (item.description.toLowerCase().contains(searchTerm.toLowerCase()) ||

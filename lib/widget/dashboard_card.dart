@@ -21,12 +21,12 @@ class DashboardCard extends StatelessWidget {
         // height: this.specification != null ? 185.0 : 158,
         children: [
           SizedBox(
-            height: 10,
+            height: 18,
             child: IconButton(
               icon: const Icon(
                 CustomIcon.Custom.cancel_5,
                 color: accentColor,
-                size: 20,
+                size: 30,
               ),
               tooltip: 'Füge die DiGA deinem Dashboard hinzu.',
               onPressed: () {
@@ -46,11 +46,11 @@ class DashboardCard extends StatelessWidget {
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       iconBuilder(diga.icon, context),
                       SizedBox(
-                        width: 20,
+                        width: 18,
                       ),
                       Container(
                           padding: EdgeInsets.only(top: 10),
@@ -64,7 +64,7 @@ class DashboardCard extends StatelessWidget {
                                   width: 170,
                                   child: Text(
                                     diga.name,
-                                    style: headlinStyle,
+                                    style: headlinStyleBold,
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                   )),
@@ -74,7 +74,9 @@ class DashboardCard extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 8, bottom: 10),
+                    margin: EdgeInsets.only(
+                      top: 8,
+                    ),
                     height: 1.0,
                     decoration: BoxDecoration(
                       color: accentColor,
@@ -99,11 +101,6 @@ class DashboardCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) {
-              // return MyApp(
-              //   view: kDashDetail,
-              //   diga: diga,
-              //   cxt: context,
-              // );
               return DashboardDiGAScreen(diga: diga);
 
               // DashboardDiGAScreen(diga: diga);
@@ -112,11 +109,9 @@ class DashboardCard extends StatelessWidget {
           //
         },
         child: Container(
-
-            // ignore: prefer_const_constructors
             decoration: BoxDecoration(
+              border: Border.all(color: accentColor, width: 2),
               shape: BoxShape.circle,
-              color: accentColor,
               boxShadow: [
                 BoxShadow(
                   color: Colors.black26,
@@ -126,13 +121,22 @@ class DashboardCard extends StatelessWidget {
                 ),
               ],
             ),
-            child: CircleAvatar(
-              backgroundColor: accentColor,
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(icon),
-                radius: 73,
-              ),
-              radius: 75, // Image
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: primaryColor),
+                    // color: primaryColor,
+                  ),
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  backgroundImage: NetworkImage(icon),
+                  radius: 75, // Image
+                )
+              ],
             )));
   }
 
@@ -179,11 +183,6 @@ class DashboardCard extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  // return MyApp(
-                  //   view: "doc",
-                  //   diga: diga,
-                  //   cxt: context,
-                  // );
                   return DoctorList();
                 }),
               );

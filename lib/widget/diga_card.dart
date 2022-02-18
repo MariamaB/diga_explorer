@@ -58,7 +58,7 @@ class DiGACard extends StatelessWidget {
                                     width: 190,
                                     child: Text(
                                       diga.name,
-                                      style: headlinStyle,
+                                      style: headlinStyleBold,
                                       maxLines: 3,
                                       // textAlign: TextAlign.justify,
                                       overflow: TextOverflow.ellipsis,
