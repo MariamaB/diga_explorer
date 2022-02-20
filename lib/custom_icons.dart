@@ -169,6 +169,14 @@ class Custom {
       IconData(0xe82a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData home_3 =
       IconData(0xe82b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData right_open_outline =
+      IconData(0xe82c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData right_circled =
+      IconData(0xe82d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData right_circle =
+      IconData(0xe82e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData right_open =
+      IconData(0xe82f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData spin3 =
       IconData(0xe832, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData spin4 =
@@ -187,6 +195,8 @@ class Custom {
       IconData(0xf086, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData facebook =
       IconData(0xf09a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData arrow_circle_right =
+      IconData(0xf0a9, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData user_md =
       IconData(0xf0f0, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData stethoscope =

@@ -419,6 +419,36 @@
       "css": "comment_medical",
       "code": 63477,
       "src": "fontawesome5"
+    },
+    {
+      "uid": "813cb2527308990d4870591d9d76f8cd",
+      "css": "right-open-outline",
+      "code": 59436,
+      "src": "typicons"
+    },
+    {
+      "uid": "4c84ab263a198ea543aff93843c5ce87",
+      "css": "right-circled",
+      "code": 59437,
+      "src": "elusive"
+    },
+    {
+      "uid": "d30928620bda0d5eaa85d3b65bf19963",
+      "css": "right-circle",
+      "code": 59438,
+      "src": "websymbols"
+    },
+    {
+      "uid": "715e1003368da5e5c41ae35190af68a1",
+      "css": "right-open",
+      "code": 59439,
+      "src": "websymbols"
+    },
+    {
+      "uid": "efcd385e594efe67706a54811e25324c",
+      "css": "arrow_circle_right",
+      "code": 61609,
+      "src": "fontawesome5"
     }
   ]
 }

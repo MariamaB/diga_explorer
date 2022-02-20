@@ -1,13 +1,32 @@
 import 'package:diga_explorer/custom_icons.dart' as CustomIcon;
+import 'package:diga_explorer/helper/diga_converter.dart';
 import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DiGACard extends StatelessWidget {
+class DiGACard extends StatefulWidget {
   const DiGACard({Key key, this.diga}) : super(key: key);
-
+  @override
+  State<DiGACard> createState() => _DiGACardState();
   final DiGAObject diga;
+}
+
+class _DiGACardState extends State<DiGACard> {
+  final myController = TextEditingController();
+  DiGAObject _diga;
+
+  @override
+  void initState() {
+    super.initState();
+    _diga = widget.diga;
+  }
+
+  @override
+  void dispose() {
+    // firestoreService.saveDiGA(digas)
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +53,14 @@ class DiGACard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            iconBuilder(diga.icon),
+                            iconBuilder(_diga.icon),
                             SizedBox(
                               height: 5.0,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
-                              children: platformIconBuilder(diga.platforms),
+                              children: platformIconBuilder(_diga.platforms),
                             )
                           ],
                         ),
@@ -57,7 +76,7 @@ class DiGACard extends StatelessWidget {
                                 SizedBox(
                                     width: 190,
                                     child: Text(
-                                      diga.name,
+                                      _diga.name,
                                       style: headlinStyleBold,
                                       maxLines: 3,
                                       // textAlign: TextAlign.justify,
@@ -67,13 +86,13 @@ class DiGACard extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children:
-                                      builderDiagnosRows(diga.indikations),
+                                      builderDiagnosRows(_diga.indikations),
                                 )
                               ],
                             )),
                       ],
                     ),
-                    buildButtonRow(diga.directoryLink),
+                    buildButtonRow(_diga),
                   ],
                 ))));
   }
@@ -153,7 +172,7 @@ class DiGACard extends StatelessWidget {
     return diagnoseR;
   }
 
-  Widget buildButtonRow(String url) {
+  Widget buildButtonRow(DiGAObject diga) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -165,26 +184,30 @@ class DiGACard extends StatelessWidget {
               backgroundColor: MaterialStateProperty.all<Color>(accentColor),
               fixedSize: MaterialStateProperty.all<Size>(Size(270, 40))),
           onPressed: () async {
-            if (await canLaunch(url))
-              await launch(url);
+            if (await canLaunch(diga.directoryLink))
+              await launch(diga.directoryLink);
             else
               // can't launch url, there is some error
-              throw "Could not launch $url";
+              throw "Could not launch ${diga.directoryLink}";
           },
           child: const Text('Weitere Informationen zur DiGA'),
         ),
         IconButton(
-          icon: const Icon(
-            CustomIcon.Custom.plus_circled,
+          icon: Icon(
+            diga.inDashboard == null || diga.inDashboard == false
+                ? CustomIcon.Custom.plus_circled
+                : CustomIcon.Custom.ok_circle,
             color: accentColor,
             size: 40,
           ),
           tooltip: 'Füge die DiGA deinem Dashboard hinzu.',
           onPressed: () {
-            diga.inDashboard =
-                diga.inDashboard != null || diga.inDashboard == false
-                    ? true
-                    : false;
+            setState(() {
+              diga.inDashboard =
+                  diga.inDashboard == null || diga.inDashboard == false
+                      ? true
+                      : false;
+            });
           },
         ),
         SizedBox(

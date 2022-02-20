@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onboarding_animation/constant/font_style.dart';
 
 const accentColor = Color(0xFF8A307F);
 const kDarkPurple = Color.fromRGBO(76, 60, 87, 1);
@@ -40,6 +41,20 @@ final headlinStyleBold = const TextStyle(
   fontSize: 18,
 );
 
+final headlinStyleBoldBig = const TextStyle(
+  fontWeight: FontWeight.bold,
+  color: textColor,
+  fontSize: 25,
+  fontFamily: 'Custom',
+);
+
+final declarationTextStyle = const TextStyle(
+  fontWeight: FontWeight.bold,
+  color: textColor,
+  fontSize: 15,
+  fontFamily: 'Custom',
+);
+
 final headlinStyle = const TextStyle(
   color: textColor,
   fontSize: 18,
@@ -57,3 +72,5 @@ final dDisplayTextStyle = const TextStyle(
 final kDoc = "doc";
 final kDashDetail = "dashboardDetailView";
 final kKV = "krankenkassen";
+
+final kTextfielHintText = "Gebe ICD-10 oder Symptome ein...";

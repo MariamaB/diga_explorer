@@ -3,7 +3,12 @@ import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/screens/directory_list_screen.dart';
 import 'package:diga_explorer/services/firestore_service.dart';
 import 'package:diga_explorer/utilities/constants.dart'
-    show accentColor, highlightColor, primaryColor, textColor;
+    show
+        accentColor,
+        highlightColor,
+        kTextfielHintText,
+        primaryColor,
+        textColor;
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -136,7 +141,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   );
                 },
               ),
-              hintText: 'Search...'),
+              hintText: kTextfielHintText),
           cursorColor: accentColor,
           style: TextStyle(color: Colors.black87),
         ));

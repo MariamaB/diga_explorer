@@ -6,6 +6,7 @@ import 'package:diga_explorer/screens/directory_list_screen.dart';
 import 'package:diga_explorer/screens/doctors_list_screen.dart';
 import 'package:diga_explorer/screens/home_screen.dart' show HomeScreen;
 import 'package:diga_explorer/screens/kv_list_screen.dart';
+import 'package:diga_explorer/screens/onboarding_screen.dart';
 import 'package:diga_explorer/screens/search_screen%20.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _child = HomeScreen();
+    _child = OnBoardingScreen();
     _backgroundColor = highlightColor;
   }
 
@@ -55,7 +56,8 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(),
       home: Scaffold(
         appBar: appBarContent(context),
-        backgroundColor: _backgroundColor,
+        backgroundColor: primaryColor,
+        // backgroundColor: _backgroundColor,
         body: Container(
           margin: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
           child: Column(children: [
@@ -107,7 +109,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       switch (index) {
         case 0:
-          _child = HomeScreen();
+          _child = OnBoardingScreen();
           _text = "Home";
           break;
         case 1:

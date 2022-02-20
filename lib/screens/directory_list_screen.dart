@@ -118,7 +118,7 @@ class _DirectoryListState extends State<DirectoryList> {
                   });
                 },
               ),
-              hintText: 'Gebe den ICD-10 Code oder Symptome ein...'),
+              hintText: kTextfielHintText),
           cursorColor: accentColor,
           style: TextStyle(color: Colors.black87),
         ));
