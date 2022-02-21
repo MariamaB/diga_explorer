@@ -207,6 +207,15 @@ class _DiGACardState extends State<DiGACard> {
                   diga.inDashboard == null || diga.inDashboard == false
                       ? true
                       : false;
+
+              if (!diga.inDashboard)
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                        'Du hast ${diga.name} aud deinem Dashboard entfernt')));
+              if (diga.inDashboard)
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                        'Du hast ${diga.name} deinem Dashboard hinzugefügt')));
             });
           },
         ),

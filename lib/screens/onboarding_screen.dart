@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:diga_explorer/main.dart';
 import 'package:diga_explorer/utilities/constants.dart'
     show
