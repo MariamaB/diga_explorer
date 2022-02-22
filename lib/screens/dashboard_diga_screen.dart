@@ -129,14 +129,15 @@ class _DashboardDiGAScreenState extends State<DashboardDiGAScreen> {
               children: [
                 Row(children: [
                   Text(
-                    "Freischalt-code speichern",
+                    "Freischaltcode speichern",
                     style: TextStyle(
                         color: textColor,
                         fontWeight: FontWeight.bold,
                         fontSize: kBigHeadlineSize),
                   ),
                   IconButton(
-                    tooltip: 'Mehr Informationen über diese DiGA',
+                    tooltip:
+                        'Importiere dein Freischaltcode um die Benachrictigung für die Folgeverschreibung zu aktivieren',
                     icon: Icon(
                       CustomIcon.Custom.info_circled,
                       size: 20,
