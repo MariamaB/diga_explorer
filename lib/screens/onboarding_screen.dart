@@ -1,4 +1,6 @@
+import 'package:diga_explorer/fluid_nav_bar_controller.dart';
 import 'package:diga_explorer/main.dart';
+import 'package:diga_explorer/services/auth_service.dart';
 import 'package:diga_explorer/utilities/constants.dart'
     show
         accentColor,
@@ -11,6 +13,8 @@ import 'package:diga_explorer/utilities/constants.dart'
 import 'package:diga_explorer/custom_icons.dart' as CustomIcon;
 import 'package:onboarding_animation/onboarding_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 // MIT License
 
@@ -37,7 +41,41 @@ import 'package:flutter/material.dart';
 class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context, listen: true);
     return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: accentColor,
+          title: Shimmer.fromColors(
+            baseColor: Colors.white,
+            highlightColor: Colors.blueGrey,
+            child: Text(
+              'Willkommen im DiGAExplorer!',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+          actions: [
+            //list if widget in appbar actions
+            PopupMenuButton(
+              icon: Icon(Icons
+                  .logout_outlined), //don't specify icon if you want 3 dot menu
+              color: accentColor,
+              itemBuilder: (context) => [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Text(
+                    "Logout",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    authService.signOut();
+                  },
+                ),
+              ],
+              onSelected: (item) => {print(item)},
+            ),
+          ],
+        ),
         backgroundColor: primaryColor,
         body: Center(
           child: Container(
@@ -66,7 +104,7 @@ class OnBoardingScreen extends StatelessWidget {
                 ),
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageLast(),
+                  child: pageLast(context),
                 ),
               ],
               indicatorDotHeight: 7.0,
@@ -86,7 +124,7 @@ class OnBoardingScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          "Finde deine passende Diga",
+          "Finde deine DiGA",
           style: headlinStyleBoldBig,
         ),
         SizedBox(
@@ -100,11 +138,11 @@ class OnBoardingScreen extends StatelessWidget {
           // margin: EdgeInsets.only(top: 15),
           padding: EdgeInsets.all(10),
           child: Text(
-            'Der Weg zu deiner passenden DiGA führt über das' +
+            'Der Weg zu deiner passenden DiGA führt über das ' +
                 'Search-Symbol auf der NavBar. Im Searchscreen, ' +
-                'kannst du direkt mit einem Suchwort zu deinen Symptomen' +
-                'oder den ICD-10 Code der Erkrankung nach einer DiGA suchen.' +
-                'Über den Button "Verzeichnis durchsuchen" gelangst du direkt ohne Such ins Verzeichnis.',
+                'kannst du direkt mit einem Suchwort zu deinen Symptomen ' +
+                'oder den ICD-10 Code der Erkrankung nach einer DiGA suchen. ' +
+                'Über den Button "Verzeichnis durchsuchen" gelangst du direkt ohne Such ins Verzeichnis. ',
             style: declarationTextStyle,
           ),
         )
@@ -161,7 +199,7 @@ class OnBoardingScreen extends StatelessWidget {
         ),
       ),
       Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 50),
           width: 350,
           child: Image(
             image: AssetImage(
@@ -253,7 +291,7 @@ class OnBoardingScreen extends StatelessWidget {
     ]);
   }
 
-  pageLast() {
+  pageLast(BuildContext context) {
     return Column(children: [
       SizedBox(
         height: 50,
@@ -306,7 +344,11 @@ class OnBoardingScreen extends StatelessWidget {
         ),
         child: IconButton(
           onPressed: () {
-            // context.
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => FluidNavBarController()),
+              (Route<dynamic> route) => false,
+            );
           },
           icon: Icon(CustomIcon.Custom.arrow_circle_right, color: accentColor),
           iconSize: 80,
@@ -317,6 +359,6 @@ class OnBoardingScreen extends StatelessWidget {
 
   customBoxDecoration() {
     return BoxDecoration(
-        border: Border.all(color: Colors.black), color: highlightColor);
+        border: Border.all(color: accentColor), color: highlightColor);
   }
 }
