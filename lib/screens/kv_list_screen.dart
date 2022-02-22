@@ -1,4 +1,5 @@
 import 'package:diga_explorer/data/KVData.dart';
+import 'package:diga_explorer/helper/helperfunctions.dart';
 import 'package:diga_explorer/models/kv_object.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:diga_explorer/widget/kv_card.dart';
@@ -26,24 +27,50 @@ class _KrankenkasseListState extends State<KrankenkasseList> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Scaffold(
+      appBar: appBarContent(context),
+      backgroundColor: highlightColor,
+      body: Container(
+        padding: EdgeInsets.only(left: 19, right: 19, top: 20),
+        margin: EdgeInsets.only(top: 10),
         child: Column(
-      children: [
-        myTextField(kVList),
-        SizedBox(
-          height: 20.0,
+          children: [
+            pageHeadline("Finde deine Krankenkasse"),
+            buildCustomDivider(),
+            myTextField(kVList),
+            SizedBox(
+              height: 20.0,
+            ),
+            Expanded(
+                child: new ListView.builder(
+                    itemCount: kVList.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return KVCard(krankenkasse: kVList[index]);
+                    }))
+          ],
         ),
-        Expanded(
-            child: new ListView.builder(
-                itemCount: kVList.length,
-                itemBuilder: (BuildContext ctxt, int index) {
-                  return KVCard(krankenkasse: kVList[index]);
-                }))
-      ],
-    ));
+      ),
+    );
   }
 
-// BorderSide(color: accentColor)
+  buildCustomDivider() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10, top: 1),
+      height: 1.0,
+      decoration: BoxDecoration(
+        color: primaryColor,
+        boxShadow: [
+          BoxShadow(
+            color: primaryColor,
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget myTextField(data) {
     return Material(
         elevation: 10.0,

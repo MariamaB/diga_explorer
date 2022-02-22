@@ -27,7 +27,7 @@ class DoctorCard extends StatelessWidget {
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,9 +44,9 @@ class DoctorCard extends StatelessWidget {
                             )
                           ],
                         ),
-                        // SizedBox(
-                        //   width: 10,
-                        // ),
+                        SizedBox(
+                          width: 20,
+                        ),
                         Container(
                             alignment: Alignment.topLeft,
                             child: Column(
@@ -57,7 +57,7 @@ class DoctorCard extends StatelessWidget {
                                     width: 190,
                                     child: Text(
                                       doctor.name,
-                                      style: headlinStyle,
+                                      style: headlinStyleBold,
                                       maxLines: 3,
                                       // textAlign: TextAlign.justify,
                                       overflow: TextOverflow.ellipsis,
@@ -68,11 +68,12 @@ class DoctorCard extends StatelessWidget {
                                 Text(
                                   doctor.fachrichtung,
                                   style: dCodeTextStyle,
+                                  maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             )),
-                        iconBuilder(doctor.icon)
+                        // iconBuilder(doctor.icon)
                       ],
                     ),
                     buildButtonRow(doctor.platforms
@@ -95,9 +96,14 @@ class DoctorCard extends StatelessWidget {
 
   Widget iconBuilder(icon) {
     return Container(
+      // decoration: BoxDecoration(
+      //   shape: BoxShape.circle,
+      //   border: Border.all(color: accentColor, width: 1),
+      // ),
       child: SizedBox.fromSize(
           size: Size.fromRadius(25),
           child: CircleAvatar(
+            backgroundColor: Colors.transparent,
             child: Image.network(((icon))),
           )),
     );
@@ -128,13 +134,15 @@ class DoctorCard extends StatelessWidget {
 
   Widget buildButtonRow(String url) {
     return Container(
-      alignment: Alignment.center,
+      alignment: Alignment.bottomRight,
       child: ElevatedButton(
         style: ButtonStyle(
-            textStyle: MaterialStateProperty.all<TextStyle>(
-                TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+            textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            )),
             backgroundColor: MaterialStateProperty.all<Color>(accentColor),
-            fixedSize: MaterialStateProperty.all<Size>(Size(270, 40))),
+            fixedSize: MaterialStateProperty.all<Size>(Size(240, 40))),
         onPressed: () async {
           if (await canLaunch(url))
             await launch(url);
@@ -142,7 +150,10 @@ class DoctorCard extends StatelessWidget {
             // can't launch url, there is some error
             throw "Could not launch $url";
         },
-        child: const Text('Weitere Informationen zur DiGA'),
+        child: const Text(
+          'Weitere Informationen zur DiGA',
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
