@@ -177,12 +177,22 @@ class Custom {
       IconData(0xe82e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData right_open =
       IconData(0xe82f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData import_contacts =
+      IconData(0xe830, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData book_open =
+      IconData(0xe831, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData spin3 =
       IconData(0xe832, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData book_open_1 =
+      IconData(0xe833, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData spin4 =
       IconData(0xe834, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData perm_device_information =
+      IconData(0xe835, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData checkmark_cicle =
       IconData(0xe87f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData book_1 =
+      IconData(0xe93a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData speech_bubble =
       IconData(0xeaad, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData search_3 =
@@ -219,12 +229,16 @@ class Custom {
       IconData(0xf230, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData facebook_squared =
       IconData(0xf308, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData book =
+      IconData(0xf314, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData check_3 =
       IconData(0xf369, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData medrt =
       IconData(0xf3c8, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData search_2 =
       IconData(0xf50d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData book_open1 =
+      IconData(0xf518, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData comment_medical =
       IconData(0xf7f5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData laptop_medical =

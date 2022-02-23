@@ -449,6 +449,48 @@
       "css": "arrow_circle_right",
       "code": 61609,
       "src": "fontawesome5"
+    },
+    {
+      "uid": "70767648d6c51ec60b79716456c1de1a",
+      "css": "import_contacts",
+      "code": 59440,
+      "src": "material"
+    },
+    {
+      "uid": "359a92b6c5badb367007940e3c8f6e1e",
+      "css": "book_open",
+      "code": 62744,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "51727ca007aa35ceabcaffc28934faee",
+      "css": "book-open",
+      "code": 59441,
+      "src": "entypo"
+    },
+    {
+      "uid": "e9f1a458968111eab72aacfdce5a3d9f",
+      "css": "book",
+      "code": 62228,
+      "src": "octicons"
+    },
+    {
+      "uid": "3ffde0be38a27af3601318db732ecd29",
+      "css": "book-1",
+      "code": 59706,
+      "src": "rpgawesome"
+    },
+    {
+      "uid": "8fc56819afcd07e2786e34f18d39b71b",
+      "css": "book-open-1",
+      "code": 59443,
+      "src": "iconic"
+    },
+    {
+      "uid": "2e6a9c09dd8d91c782a317b47b22ca5d",
+      "css": "perm_device_information",
+      "code": 59445,
+      "src": "material"
     }
   ]
 }
