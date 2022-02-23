@@ -1,18 +1,22 @@
+import 'package:diga_explorer/models/on_boarding_listner.dart';
 import 'package:diga_explorer/screens/login_screen.dart';
 import 'package:diga_explorer/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:property_change_notifier/property_change_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../fluid_nav_bar_controller.dart';
 
 class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final mUser = context.watch<User>();
     final user = context.watch<User>();
-    print('User: ${user}, mUser ${mUser}');
+    print('User: ${user}');
     if (user != null) {
-      return OnBoardingScreen();
+      return PropertyChangeProvider(
+          value: OnBoardingListiner(), child: const FluidNavBarController());
     }
-    return LoginScreen();
+    return const LoginScreen();
   }
 }

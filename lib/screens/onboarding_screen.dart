@@ -1,5 +1,6 @@
 import 'package:diga_explorer/fluid_nav_bar_controller.dart';
 import 'package:diga_explorer/main.dart';
+import 'package:diga_explorer/models/on_boarding_listner.dart';
 import 'package:diga_explorer/services/auth_service.dart';
 import 'package:diga_explorer/utilities/constants.dart'
     show
@@ -39,43 +40,13 @@ import 'package:shimmer/shimmer.dart';
 // SOFTWARE.
 
 class OnBoardingScreen extends StatelessWidget {
+  const OnBoardingScreen({Key key, this.listenerWidget}) : super(key: key);
+  final OnBoardingListiner listenerWidget;
+
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: true);
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: accentColor,
-          title: Shimmer.fromColors(
-            baseColor: Colors.white,
-            highlightColor: Colors.blueGrey,
-            child: Text(
-              'Willkommen im DiGAExplorer!',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-          actions: [
-            //list if widget in appbar actions
-            PopupMenuButton(
-              icon: Icon(Icons
-                  .logout_outlined), //don't specify icon if you want 3 dot menu
-              color: accentColor,
-              itemBuilder: (context) => [
-                PopupMenuItem<int>(
-                  value: 0,
-                  child: Text(
-                    "Logout",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {
-                    authService.signOut();
-                  },
-                ),
-              ],
-              onSelected: (item) => {print(item)},
-            ),
-          ],
-        ),
         backgroundColor: primaryColor,
         body: Center(
           child: Container(
@@ -344,11 +315,13 @@ class OnBoardingScreen extends StatelessWidget {
         ),
         child: IconButton(
           onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => FluidNavBarController()),
-              (Route<dynamic> route) => false,
-            );
+            this.listenerWidget.setOnInitApp = false;
+            print("on Tab!!!");
+            // Navigator.pushAndRemoveUntil(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => FluidNavBarController()),
+            //   (Route<dynamic> route) => false,
+            // );
           },
           icon: Icon(CustomIcon.Custom.arrow_circle_right, color: accentColor),
           iconSize: 80,

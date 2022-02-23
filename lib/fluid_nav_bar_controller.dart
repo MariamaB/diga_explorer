@@ -1,5 +1,6 @@
 import 'package:diga_explorer/helper/helperfunctions.dart';
 import 'package:diga_explorer/models/diga_object.dart';
+import 'package:diga_explorer/models/on_boarding_listner.dart';
 import 'package:diga_explorer/screens/dashboard_list_screen.dart';
 import 'package:diga_explorer/screens/home_screen.dart' show HomeScreen;
 import 'package:diga_explorer/screens/onboarding_screen.dart';
@@ -9,13 +10,9 @@ import 'package:diga_explorer/utilities/constants.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:diga_explorer/custom_icons.dart' as CustomIcon;
+import 'package:property_change_notifier/property_change_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-
-void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
-}
 
 class FluidNavBarController extends StatefulWidget {
   // This widget is the root of your application.
@@ -33,11 +30,16 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
   Color _backgroundColor;
   String _text = "Home";
   List<DiGAObject> data;
+  final onBoardingListiner = OnBoardingListiner();
+  bool _onInitApp = true;
 
   @override
   void initState() {
     super.initState();
-    _child = HomeScreen();
+    onBoardingListiner.addListener(_changeView);
+    _child = OnBoardingScreen(
+      listenerWidget: onBoardingListiner,
+    );
     _backgroundColor = highlightColor;
   }
 
@@ -46,67 +48,75 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
     super.dispose();
   }
 
+  _changeView() {
+    setState(() {
+      _onInitApp = onBoardingListiner.onInitApp;
+      _child = HomeScreen();
+    });
+    print("Onchange!");
+  }
+
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: true);
-    return MaterialApp(
-      title: 'Diga Explorer',
-      theme: ThemeData(),
-      home: Scaffold(
-        appBar: appBarContent(context, authService),
-        backgroundColor: primaryColor,
-        // backgroundColor: _backgroundColor,
-        body: Container(
-          margin: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
-          child: Column(children: [
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              _text,
-              style: headlinStyle,
-            ),
-            // Shimmer.fromColors(
-            //   baseColor: Colors.white,
-            //   highlightColor: Colors.blueGrey,
-            //   child: Text(
-            //     _text,
-            //     style: Theme.of(context).textTheme.titleSmall,
-            //   ),
-            // ),
-            buildCustomDivider(highlightColor),
-            Expanded(child: _child),
-            buildCustomDivider(highlightColor)
-          ]),
-        ),
-        bottomNavigationBar: FluidNavBar(
-          icons: [
-            FluidNavBarIcon(
-                icon: Icons.home,
-                backgroundColor: accentColor,
-                extras: {"label": "home"}),
-            FluidNavBarIcon(
-                icon: CustomIcon.Custom.medrt,
-                backgroundColor: accentColor,
-                extras: {"label": "diga-dashboard"}),
-            FluidNavBarIcon(
-                icon: CustomIcon.Custom.search_3,
-                backgroundColor: accentColor,
-                extras: {"label": "verzeichnis"}),
-          ],
-          onChange: _handleNavigationChange,
-          style: const FluidNavBarStyle(
-              barBackgroundColor: kDarkPurple,
-              iconSelectedForegroundColor: primaryColor,
-              iconUnselectedForegroundColor: kDarkPurple),
-          scaleFactor: 1.5,
-          defaultIndex: 0,
-          itemBuilder: (icon, item) => Semantics(
-            label: icon.extras["label"],
-            child: item,
+    return Scaffold(
+      appBar: (_onInitApp)
+          ? initAppBar(context, authService)
+          : appBarContent(context, authService),
+      backgroundColor: primaryColor,
+      // backgroundColor: _backgroundColor,
+      body: Container(
+        margin: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+        child: Column(children: [
+          SizedBox(
+            height: 10,
           ),
-        ),
+          Text(
+            _text,
+            style: headlinStyle,
+          ),
+          // Shimmer.fromColors(
+          //   baseColor: Colors.white,
+          //   highlightColor: Colors.blueGrey,
+          //   child: Text(
+          //     _text,
+          //     style: Theme.of(context).textTheme.titleSmall,
+          //   ),
+          // ),
+          buildCustomDivider(highlightColor),
+          Expanded(child: _child),
+          buildCustomDivider(highlightColor)
+        ]),
       ),
+      bottomNavigationBar: (_onInitApp)
+          ? null
+          : FluidNavBar(
+              icons: [
+                FluidNavBarIcon(
+                    icon: Icons.home,
+                    backgroundColor: accentColor,
+                    extras: {"label": "home"}),
+                FluidNavBarIcon(
+                    icon: CustomIcon.Custom.medrt,
+                    backgroundColor: accentColor,
+                    extras: {"label": "diga-dashboard"}),
+                FluidNavBarIcon(
+                    icon: CustomIcon.Custom.search_3,
+                    backgroundColor: accentColor,
+                    extras: {"label": "verzeichnis"}),
+              ],
+              onChange: _handleNavigationChange,
+              style: const FluidNavBarStyle(
+                  barBackgroundColor: kDarkPurple,
+                  iconSelectedForegroundColor: primaryColor,
+                  iconUnselectedForegroundColor: kDarkPurple),
+              scaleFactor: 1.5,
+              defaultIndex: 0,
+              itemBuilder: (icon, item) => Semantics(
+                label: icon.extras["label"],
+                child: item,
+              ),
+            ),
     );
   }
 
@@ -115,7 +125,7 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
     setState(() {
       switch (index) {
         case 0:
-          _child = HomeScreen();
+          _child = OnBoardingScreen();
           _text = "Home";
           break;
         case 1:
@@ -199,4 +209,40 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
       ),
     );
   }
+}
+
+initAppBar(context, authService) {
+  return AppBar(
+    centerTitle: true,
+    backgroundColor: accentColor,
+    title: Shimmer.fromColors(
+      baseColor: Colors.white,
+      highlightColor: Colors.blueGrey,
+      child: Text(
+        'Willkommen im DiGAExplorer!',
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+    ),
+    actions: [
+      //list if widget in appbar actions
+      PopupMenuButton(
+        icon: Icon(
+            Icons.logout_outlined), //don't specify icon if you want 3 dot menu
+        color: accentColor,
+        itemBuilder: (context) => [
+          PopupMenuItem<int>(
+            value: 0,
+            child: Text(
+              "Logout",
+              style: TextStyle(color: Colors.white),
+            ),
+            onTap: () {
+              authService.signOut();
+            },
+          ),
+        ],
+        onSelected: (item) => {print(item)},
+      ),
+    ],
+  );
 }
