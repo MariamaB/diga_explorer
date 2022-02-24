@@ -5,6 +5,7 @@ import 'package:diga_explorer/services/firestore_service.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:diga_explorer/widget/diga_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DirectoryList extends StatefulWidget {
   const DirectoryList({Key key, this.digaList, this.searchTerm})
@@ -18,7 +19,6 @@ class DirectoryList extends StatefulWidget {
 }
 
 class _DirectoryListState extends State<DirectoryList> {
-  FirestoreService firestoreService = new FirestoreService();
   final myController = TextEditingController();
   List<DiGAObject> _diGAList;
   @override
@@ -36,6 +36,8 @@ class _DirectoryListState extends State<DirectoryList> {
 
   @override
   Widget build(BuildContext context) {
+    final FirestoreService firestoreService = context.read<FirestoreService>();
+
     return Scaffold(
         appBar: appBarContent(context),
         backgroundColor: highlightColor,

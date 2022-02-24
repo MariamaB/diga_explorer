@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/models/diga_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
 class FirestoreService {
-  FirebaseFirestore db = FirebaseFirestore.instance;
+  final FirebaseFirestore db;
+  FirestoreService(this.db);
   var uuid = Uuid();
 
   Future<void> saveDiGA(List<DiGAObject> digas) {
@@ -42,17 +46,13 @@ class FirestoreService {
         snapshot.docs.map((e) => DiGAObject.fromJson(e.data())).toList());
   }
 
-  Future<void> setUser(DigaUser user) {
-    return db.collection('users').doc(user.userId).set(user.toMap());
+//////////////////////////////////////////////////////////////////////////////////////////////
+  Future<void> createUser(DigaUser user) {
+    return db.collection('users').doc(user.uid).set(user.toMap());
   }
 
-  Future<void> updateEmailVerified(
-      {@required String userId,
-      @required String email,
-      @required String displayName,
-      @required bool verified}) {
-    db.collection('users').doc(userId).update(
-        {'verified': verified, 'display_name': displayName, 'email': email});
+  Future<void> updateVerifiedInSystem(@required String userId) {
+    db.collection('users').doc(userId).update({'verified': true});
   }
 
   Future<DigaUser> getUser(String userId) {

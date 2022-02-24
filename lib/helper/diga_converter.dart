@@ -1,5 +1,6 @@
 // import 'dart:js_util';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diga_explorer/data/catalogEntryResponse.dart';
 import 'package:diga_explorer/data/chargeItemDefinitionResponse.dart';
 import 'package:diga_explorer/data/deviceDefinitionResponse.dart';
@@ -10,7 +11,8 @@ import 'package:diga_explorer/services/diga_service.dart';
 
 import 'package:diga_explorer/services/firestore_service.dart';
 
-FirestoreService firestoreService = new FirestoreService();
+FirestoreService firestoreService =
+    new FirestoreService(FirebaseFirestore.instance);
 
 Future<List<DiGAObject>> convertToDigaObject() async {
   print("Enter convertToDigaObject!");

@@ -1,16 +1,17 @@
-import 'package:diga_explorer/main.dart';
+import 'package:diga_explorer/models/on_boarding_listner.dart';
+import 'package:diga_explorer/services/auth_service.dart';
 import 'package:diga_explorer/utilities/constants.dart'
     show
         accentColor,
         declarationTextStyle,
         headlinStyleBoldBig,
         highlightColor,
-        kDarkPurple,
-        kWhite,
         primaryColor;
 import 'package:diga_explorer/custom_icons.dart' as CustomIcon;
 import 'package:onboarding_animation/onboarding_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 // MIT License
 
@@ -35,8 +36,12 @@ import 'package:flutter/material.dart';
 // SOFTWARE.
 
 class OnBoardingScreen extends StatelessWidget {
+  const OnBoardingScreen({Key key, this.listenerWidget}) : super(key: key);
+  final OnBoardingListiner listenerWidget;
+
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context, listen: true);
     return Scaffold(
         backgroundColor: primaryColor,
         body: Center(
@@ -46,27 +51,27 @@ class OnBoardingScreen extends StatelessWidget {
               pages: [
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageOne(),
+                  child: pageOne(context),
                 ),
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageTwo(),
+                  child: pageTwo(context),
                 ),
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageThree(),
+                  child: pageThree(context),
                 ),
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageFour(),
+                  child: pageFour(context),
                 ),
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageFife(),
+                  child: pageFife(context),
                 ),
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageLast(),
+                  child: pageLast(context),
                 ),
               ],
               indicatorDotHeight: 7.0,
@@ -81,16 +86,16 @@ class OnBoardingScreen extends StatelessWidget {
         ));
   }
 
-  pageOne() {
+  pageOne(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          "Finde deine passende Diga",
+          "Finde deine DiGA",
           style: headlinStyleBoldBig,
         ),
         SizedBox(
-            width: 250,
+            width: 260,
             child: Image(
               image: AssetImage(
                 'assets/onBoarding/pageOne.JPG',
@@ -100,19 +105,20 @@ class OnBoardingScreen extends StatelessWidget {
           // margin: EdgeInsets.only(top: 15),
           padding: EdgeInsets.all(10),
           child: Text(
-            'Der Weg zu deiner passenden DiGA führt über das' +
+            'Der Weg zu deiner passenden DiGA führt über das ' +
                 'Search-Symbol auf der NavBar. Im Searchscreen, ' +
-                'kannst du direkt mit einem Suchwort zu deinen Symptomen' +
-                'oder den ICD-10 Code der Erkrankung nach einer DiGA suchen.' +
-                'Über den Button "Verzeichnis durchsuchen" gelangst du direkt ohne Such ins Verzeichnis.',
+                'kannst du direkt mit einem Suchwort zu deinen Symptomen ' +
+                'oder den ICD-10 Code der Erkrankung nach einer DiGA suchen. ' +
+                'Über den Button "Verzeichnis durchsuchen" gelangst du direkt ohne Such ins Verzeichnis. ',
             style: declarationTextStyle,
           ),
-        )
+        ),
+        buildTextButton(context)
       ],
     );
   }
 
-  pageTwo() {
+  pageTwo(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -144,11 +150,12 @@ class OnBoardingScreen extends StatelessWidget {
             style: declarationTextStyle,
           ),
         ),
+        buildTextButton(context)
       ],
     );
   }
 
-  pageThree() {
+  pageThree(BuildContext context) {
     return Column(children: [
       Container(
         // margin: EdgeInsets.only(top: 15),
@@ -161,7 +168,7 @@ class OnBoardingScreen extends StatelessWidget {
         ),
       ),
       Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 50),
           width: 350,
           child: Image(
             image: AssetImage(
@@ -176,11 +183,12 @@ class OnBoardingScreen extends StatelessWidget {
               'in der NavBar.',
           style: declarationTextStyle,
         ),
-      )
+      ),
+      buildTextButton(context)
     ]);
   }
 
-  pageFour() {
+  pageFour(BuildContext context) {
     return Column(children: [
       Container(
         // margin: EdgeInsets.only(top: 15),
@@ -215,10 +223,11 @@ class OnBoardingScreen extends StatelessWidget {
               style: declarationTextStyle,
             ),
           )),
+      buildTextButton(context)
     ]);
   }
 
-  pageFife() {
+  pageFife(BuildContext context) {
     return Column(children: [
       Container(
         alignment: Alignment.center,
@@ -249,11 +258,12 @@ class OnBoardingScreen extends StatelessWidget {
             style: declarationTextStyle,
           ),
         ),
-      )
+      ),
+      buildTextButton(context)
     ]);
   }
 
-  pageLast() {
+  pageLast(BuildContext context) {
     return Column(children: [
       SizedBox(
         height: 50,
@@ -289,34 +299,56 @@ class OnBoardingScreen extends StatelessWidget {
       //   onPressed: () {},
       //   child: const Text('Weitere Informationen zur DiGA'),
       // ),
-      SizedBox(
-        height: 20,
-      ),
+
       Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: primaryColor,
-              spreadRadius: 1,
-              blurRadius: 10,
-              offset: Offset(7, 1), // changes position of shadow
+          margin: EdgeInsets.only(top: 60),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: primaryColor,
+                spreadRadius: 1,
+                blurRadius: 10,
+                offset: Offset(7, 1), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Shimmer.fromColors(
+            baseColor: Colors.white,
+            highlightColor: Colors.blueGrey,
+            child: IconButton(
+              onPressed: () {
+                this.listenerWidget.showOnBoarding = false;
+                print("on Tab!!!");
+              },
+              icon: Icon(CustomIcon.Custom.arrow_circle_right,
+                  color: accentColor),
+              iconSize: 80,
             ),
-          ],
-        ),
-        child: IconButton(
-          onPressed: () {
-            // context.
-          },
-          icon: Icon(CustomIcon.Custom.arrow_circle_right, color: accentColor),
-          iconSize: 80,
-        ),
-      )
+          )),
     ]);
   }
 
   customBoxDecoration() {
     return BoxDecoration(
-        border: Border.all(color: Colors.black), color: highlightColor);
+        border: Border.all(color: accentColor), color: highlightColor);
+  }
+
+  buildTextButton(context) {
+    return TextButton(
+        style: TextButton.styleFrom(
+          textStyle: const TextStyle(fontSize: 20),
+        ),
+        onPressed: () {
+          this.listenerWidget.showOnBoarding = false;
+        },
+        child: Shimmer.fromColors(
+          baseColor: Colors.white,
+          highlightColor: Colors.blueGrey,
+          child: Text(
+            'Skip onboarding...',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+        ));
   }
 }

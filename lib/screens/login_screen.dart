@@ -1,10 +1,13 @@
+import 'package:diga_explorer/models/diga_user.dart';
 import 'package:diga_explorer/services/auth_service.dart';
+import 'package:diga_explorer/services/firestore_service.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:provider/provider.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,11 +21,10 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
   bool isMobile = false;
   var _token;
-
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-  final _authService = AuthService();
+  // var christina = {"christina.schiller@test.de", "test12345"};
+  final _emailController =
+      TextEditingController(text: "christina.schiller@test.de");
+  final _passwordController = TextEditingController(text: "test12345");
 
   @override
   void initState() {
@@ -159,34 +161,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildLoginBtn() {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
-      width: double.infinity,
-      child: RaisedButton(
-        elevation: 5.0,
-        onPressed: () =>
-            signIn(_emailController.text, _passwordController.text),
-        padding: EdgeInsets.all(15.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        color: Colors.white,
-        child: Text(
-          'LOGIN',
-          style: TextStyle(
-            // color: accentColor,
-            color: kDarkPurple,
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildSignInWithText() {
     return Column(
       children: <Widget>[
@@ -216,90 +190,127 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildSocialButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _buildLogoButton(
-          image: 'assets/images/google_logo.png',
-          onPressed: () async {
-            final credential = await signInWithGoogle();
-
-            print(credential);
-          },
-        ),
-        SizedBox(width: 40.0),
-        _buildLogoButton(
-          image: 'assets/images/apple_logo.png',
-          onPressed: () async {
-            final credential = await SignInWithApple.getAppleIDCredential(
-              scopes: [
-                AppleIDAuthorizationScopes.email,
-                AppleIDAuthorizationScopes.fullName,
-              ],
-            );
-
-            print(credential);
-
-            // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
-            // after they have been validated with Apple (see `Integration` section for more information on how to do this)
-          },
-        ),
-        // _buildLogoButton(
-        //   image: 'assets/images/facebook_logo.png',
-        //   onPressed: () {},
-        // )
-      ],
-    );
-  }
-
-  Widget _buildSignupBtn() {
-    return GestureDetector(
-      onTap: () => signUp(_emailController.text, _passwordController.text),
-      child: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'Don\'t have an Account? ',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            TextSpan(
-              text: ' Sign Up',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  signUp(email, password) async {
-    UserCredential authResult = await _authService.signupEmail(email, password);
-    print(authResult.user);
-  }
-
-  signIn(email, password) async {
-    _authService.signinEmail(email, password).then(
-        (UserCredential authResult) => {
-              _token = authResult.user.refreshToken,
-              print("My TOKEN:" + authResult.user.uid)
-            });
-
-    // _authService.signOut();
-  }
-
   @override
   Widget build(BuildContext context) {
     //double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final authService = Provider.of<AuthService>(context, listen: true);
+
+    signUp(email, password) async {
+      UserCredential authResult =
+          await authService.signupEmail(email, password);
+
+      // firestoreService.createUser(
+      //         new DigaUser(
+      //             displayName: "Christina Schiller",
+      //             photoURL: 'assets/images/user.png',
+      //             email: authResult.user.email,
+      //             uid: authResult.user.uid,
+      //             verified: false),
+      //       );
+
+      print(authResult.user);
+    }
+
+    signIn(email, password) async {
+      await authService.signinEmail(email, password);
+
+      // _authService.signOut();
+    }
+
+    Widget _buildLoginBtn() {
+      return Container(
+        padding: EdgeInsets.symmetric(vertical: 25.0),
+        width: double.infinity,
+        child: RaisedButton(
+          elevation: 5.0,
+          onPressed: () =>
+              signIn(_emailController.text, _passwordController.text),
+          padding: EdgeInsets.all(15.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          color: Colors.white,
+          child: Text(
+            'LOGIN',
+            style: TextStyle(
+              // color: accentColor,
+              color: kDarkPurple,
+              letterSpacing: 1.5,
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'OpenSans',
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget _buildSignupBtn() {
+      return GestureDetector(
+        onTap: () => signUp(_emailController.text, _passwordController.text),
+        child: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: 'Don\'t have an Account? ',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              TextSpan(
+                text: ' Sign Up',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    Widget _buildSocialButtons() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildLogoButton(
+            image: 'assets/images/google_logo.png',
+            onPressed: () async {
+              final credential = await authService.signInWithGoogle();
+
+              print(credential);
+            },
+          ),
+          SizedBox(width: 40.0),
+          _buildLogoButton(
+            image: 'assets/images/apple_logo.png',
+            onPressed: () async {
+              final credential = await SignInWithApple.getAppleIDCredential(
+                scopes: [
+                  AppleIDAuthorizationScopes.email,
+                  AppleIDAuthorizationScopes.fullName,
+                ],
+              );
+
+              print(credential);
+
+              // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
+              // after they have been validated with Apple (see `Integration` section for more information on how to do this)
+            },
+          ),
+          // _buildLogoButton(
+          //   image: 'assets/images/facebook_logo.png',
+          //   onPressed: () {},
+          // )
+        ],
+      );
+    }
+
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,

@@ -10,6 +10,7 @@ import 'package:diga_explorer/utilities/constants.dart'
         primaryColor,
         textColor;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -20,7 +21,6 @@ class _SearchScreenState extends State<SearchScreen> {
   final myController = TextEditingController();
   List<DiGAObject> _digaList = <DiGAObject>[];
 
-  FirestoreService firestoreService = new FirestoreService();
   @override
   void initState() {
     super.initState();
@@ -33,6 +33,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final FirestoreService firestoreService = context.read<FirestoreService>();
+
     return Scaffold(
       backgroundColor: primaryColor,
       body: Center(
