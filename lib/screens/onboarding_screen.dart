@@ -1,5 +1,3 @@
-import 'package:diga_explorer/fluid_nav_bar_controller.dart';
-import 'package:diga_explorer/main.dart';
 import 'package:diga_explorer/models/on_boarding_listner.dart';
 import 'package:diga_explorer/services/auth_service.dart';
 import 'package:diga_explorer/utilities/constants.dart'
@@ -8,8 +6,6 @@ import 'package:diga_explorer/utilities/constants.dart'
         declarationTextStyle,
         headlinStyleBoldBig,
         highlightColor,
-        kDarkPurple,
-        kWhite,
         primaryColor;
 import 'package:diga_explorer/custom_icons.dart' as CustomIcon;
 import 'package:onboarding_animation/onboarding_animation.dart';
@@ -55,23 +51,23 @@ class OnBoardingScreen extends StatelessWidget {
               pages: [
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageOne(),
+                  child: pageOne(context),
                 ),
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageTwo(),
+                  child: pageTwo(context),
                 ),
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageThree(),
+                  child: pageThree(context),
                 ),
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageFour(),
+                  child: pageFour(context),
                 ),
                 Container(
                   decoration: customBoxDecoration(),
-                  child: pageFife(),
+                  child: pageFife(context),
                 ),
                 Container(
                   decoration: customBoxDecoration(),
@@ -90,7 +86,7 @@ class OnBoardingScreen extends StatelessWidget {
         ));
   }
 
-  pageOne() {
+  pageOne(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -99,7 +95,7 @@ class OnBoardingScreen extends StatelessWidget {
           style: headlinStyleBoldBig,
         ),
         SizedBox(
-            width: 250,
+            width: 260,
             child: Image(
               image: AssetImage(
                 'assets/onBoarding/pageOne.JPG',
@@ -116,12 +112,13 @@ class OnBoardingScreen extends StatelessWidget {
                 'Über den Button "Verzeichnis durchsuchen" gelangst du direkt ohne Such ins Verzeichnis. ',
             style: declarationTextStyle,
           ),
-        )
+        ),
+        buildTextButton(context)
       ],
     );
   }
 
-  pageTwo() {
+  pageTwo(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -153,11 +150,12 @@ class OnBoardingScreen extends StatelessWidget {
             style: declarationTextStyle,
           ),
         ),
+        buildTextButton(context)
       ],
     );
   }
 
-  pageThree() {
+  pageThree(BuildContext context) {
     return Column(children: [
       Container(
         // margin: EdgeInsets.only(top: 15),
@@ -185,11 +183,12 @@ class OnBoardingScreen extends StatelessWidget {
               'in der NavBar.',
           style: declarationTextStyle,
         ),
-      )
+      ),
+      buildTextButton(context)
     ]);
   }
 
-  pageFour() {
+  pageFour(BuildContext context) {
     return Column(children: [
       Container(
         // margin: EdgeInsets.only(top: 15),
@@ -224,10 +223,11 @@ class OnBoardingScreen extends StatelessWidget {
               style: declarationTextStyle,
             ),
           )),
+      buildTextButton(context)
     ]);
   }
 
-  pageFife() {
+  pageFife(BuildContext context) {
     return Column(children: [
       Container(
         alignment: Alignment.center,
@@ -258,7 +258,8 @@ class OnBoardingScreen extends StatelessWidget {
             style: declarationTextStyle,
           ),
         ),
-      )
+      ),
+      buildTextButton(context)
     ]);
   }
 
@@ -298,40 +299,56 @@ class OnBoardingScreen extends StatelessWidget {
       //   onPressed: () {},
       //   child: const Text('Weitere Informationen zur DiGA'),
       // ),
-      SizedBox(
-        height: 20,
-      ),
+
       Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: primaryColor,
-              spreadRadius: 1,
-              blurRadius: 10,
-              offset: Offset(7, 1), // changes position of shadow
+          margin: EdgeInsets.only(top: 60),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: primaryColor,
+                spreadRadius: 1,
+                blurRadius: 10,
+                offset: Offset(7, 1), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Shimmer.fromColors(
+            baseColor: Colors.white,
+            highlightColor: Colors.blueGrey,
+            child: IconButton(
+              onPressed: () {
+                this.listenerWidget.showOnBoarding = false;
+                print("on Tab!!!");
+              },
+              icon: Icon(CustomIcon.Custom.arrow_circle_right,
+                  color: accentColor),
+              iconSize: 80,
             ),
-          ],
-        ),
-        child: IconButton(
-          onPressed: () {
-            this.listenerWidget.setOnInitApp = false;
-            print("on Tab!!!");
-            // Navigator.pushAndRemoveUntil(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => FluidNavBarController()),
-            //   (Route<dynamic> route) => false,
-            // );
-          },
-          icon: Icon(CustomIcon.Custom.arrow_circle_right, color: accentColor),
-          iconSize: 80,
-        ),
-      )
+          )),
     ]);
   }
 
   customBoxDecoration() {
     return BoxDecoration(
         border: Border.all(color: accentColor), color: highlightColor);
+  }
+
+  buildTextButton(context) {
+    return TextButton(
+        style: TextButton.styleFrom(
+          textStyle: const TextStyle(fontSize: 20),
+        ),
+        onPressed: () {
+          this.listenerWidget.showOnBoarding = false;
+        },
+        child: Shimmer.fromColors(
+          baseColor: Colors.white,
+          highlightColor: Colors.blueGrey,
+          child: Text(
+            'Skip onboarding...',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+        ));
   }
 }

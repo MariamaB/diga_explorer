@@ -1,13 +1,16 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new
 
+import 'package:diga_explorer/helper/diga_converter.dart';
 import 'package:diga_explorer/helper/helperfunctions.dart';
 import 'package:diga_explorer/models/diga_object.dart';
+import 'package:diga_explorer/models/diga_user.dart';
 import 'package:diga_explorer/models/on_boarding_listner.dart';
 import 'package:diga_explorer/screens/dashboard_list_screen.dart';
 import 'package:diga_explorer/screens/home_screen.dart' show HomeScreen;
 import 'package:diga_explorer/screens/onboarding_screen.dart';
 import 'package:diga_explorer/screens/search_screen%20.dart';
 import 'package:diga_explorer/services/auth_service.dart';
+import 'package:diga_explorer/services/firestore_service.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
@@ -20,10 +23,9 @@ import 'package:shimmer/shimmer.dart';
 class FluidNavBarController extends StatefulWidget {
   // This widget is the root of your application.
 
-  const FluidNavBarController({
-    Key key,
-  }) : super(key: key);
+  const FluidNavBarController({Key key, this.currentUser}) : super(key: key);
 
+  final DigaUser currentUser;
   @override
   _FluidNavBarControllerState createState() => _FluidNavBarControllerState();
 }
@@ -31,16 +33,21 @@ class FluidNavBarController extends StatefulWidget {
 class _FluidNavBarControllerState extends State<FluidNavBarController> {
   Widget _child;
   Color _backgroundColor;
-  String _text = "Home";
+  String _text;
   List<DiGAObject> data;
   final onBoardingListiner = OnBoardingListiner();
-  bool _onInitApp = true;
+  bool _showOnBoarding;
 
+  DigaUser _currentUser;
   @override
   void initState() {
     super.initState();
     onBoardingListiner.addListener(_changeView);
-    _child = _onInitApp
+    _currentUser = widget.currentUser;
+    _showOnBoarding =
+        _currentUser.verified != null || _currentUser.verified ? false : true;
+    _text = _showOnBoarding ? "" : "Home";
+    _child = _showOnBoarding
         ? OnBoardingScreen(
             listenerWidget: onBoardingListiner,
           )
@@ -55,7 +62,8 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
 
   _changeView() {
     setState(() {
-      _onInitApp = onBoardingListiner.onInitApp;
+      _showOnBoarding = onBoardingListiner.showOnBoarding;
+      _text = "Home";
       _child = HomeScreen();
     });
     print("Onchange!");
@@ -65,12 +73,16 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
   Widget build(BuildContext context) {
     final user = context.watch<User>();
     final authService = Provider.of<AuthService>(context, listen: true);
+    final FirestoreService firestoreService = context.read<FirestoreService>();
 
     return Scaffold(
-      drawer: (!_onInitApp) ? drawer(authService, user) : null,
-      appBar: (_onInitApp)
-          ? initAppBar(context, authService)
-          : appBarContent(context, authService),
+      drawer: (_showOnBoarding) ? null : drawer(authService, firestoreService),
+      appBar: (_showOnBoarding)
+          ? initAppBar(context)
+          : appBarContent(
+              context,
+              authService,
+            ),
       backgroundColor: primaryColor,
       // backgroundColor: _backgroundColor,
       body: Container(
@@ -96,7 +108,7 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
           buildCustomDivider(highlightColor)
         ]),
       ),
-      bottomNavigationBar: (_onInitApp)
+      bottomNavigationBar: (_showOnBoarding)
           ? null
           : FluidNavBar(
               icons: [
@@ -180,31 +192,31 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
     );
   }
 
-  drawer(authService, user) {
+  drawer(authService, firestoreService) {
     return new Drawer(
       child: new ListView(
         children: <Widget>[
           new UserAccountsDrawerHeader(
-            accountEmail: new Text(user.email),
-            accountName: new Text(user.displayName),
+            accountEmail: new Text(_currentUser.email),
+            accountName: new Text(_currentUser.displayName),
             currentAccountPicture: new GestureDetector(
               child: new CircleAvatar(
-                  // backgroundImage: new NetworkImage(currentProfilePic),
-                  ),
+                backgroundImage: AssetImage(_currentUser.photoURL),
+                // backgroundImage: new NetworkImage(_currentUser.photoURL),
+              ),
               onTap: () => print("This is your current account."),
             ),
-            otherAccountsPictures: <Widget>[
-              new GestureDetector(
-                child: new CircleAvatar(
-                    // backgroundImage: new NetworkImage(otherProfilePic),
-                    ),
-                // onTap: () => switchAccounts(),
-              ),
-            ],
+            // otherAccountsPictures: <Widget>[
+            //   new GestureDetector(
+            //     child: new CircleAvatar(
+            // backgroundImage: new NetworkImage(otherProfilePic),
+            // ),
+            // onTap: () => switchAccounts(),
+            // ),
+            // ],
             decoration: new BoxDecoration(
                 image: new DecorationImage(
-                    image: new NetworkImage(
-                        "https://img00.deviantart.net/35f0/i/2015/018/2/6/low_poly_landscape__the_river_cut_by_bv_designs-d8eib00.jpg"),
+                    image: AssetImage("assets/images/backgroundImage.jpg"),
                     fit: BoxFit.fill)),
           ),
           new ListTile(
@@ -217,26 +229,33 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
               title: new Text("On-Bordingpages"),
               trailing: new Icon(CustomIcon.Custom.book_open_1),
               onTap: () {
-                onBoardingListiner.setOnInitApp = true;
+                onBoardingListiner.showOnBoarding = true;
                 _child = OnBoardingScreen(listenerWidget: onBoardingListiner);
               }),
-          new Divider(),
+          // new Divider(),
           new ListTile(
-            title: new Text("Cancel"),
-            trailing: new Icon(Icons.cancel),
+            // title: new Text("Cancel"),
+            // trailing: new Icon(Icons.cancel),
             onTap: () => Navigator.pop(context),
           ),
+
+          new Divider(),
           new ListTile(
               title: new Text("Logout"),
               trailing: new Icon(Icons.logout_outlined),
-              onTap: () => authService.signOut()),
+              onTap: () async => {
+                    if (!_currentUser.verified)
+                      await firestoreService
+                          .updateVerifiedInSystem(_currentUser.uid),
+                    authService.signOut()
+                  }),
         ],
       ),
     );
   }
 }
 
-initAppBar(context, authService) {
+initAppBar(context) {
   return AppBar(
     centerTitle: true,
     backgroundColor: accentColor,

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diga_explorer/common/AuthenticationWrapper.dart';
 import 'package:diga_explorer/services/auth_service.dart';
 import 'package:diga_explorer/services/firestore_service.dart';
@@ -39,7 +40,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          Provider(create: (context) => FirestoreService()),
+          Provider(
+              create: (context) =>
+                  FirestoreService(FirebaseFirestore.instance)),
           Provider<AuthService>(
             create: (_) => AuthService(FirebaseAuth.instance),
           ),

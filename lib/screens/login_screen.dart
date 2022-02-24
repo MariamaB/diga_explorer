@@ -1,4 +1,6 @@
+import 'package:diga_explorer/models/diga_user.dart';
 import 'package:diga_explorer/services/auth_service.dart';
+import 'package:diga_explorer/services/firestore_service.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +21,10 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
   bool isMobile = false;
   var _token;
-
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  // var christina = {"christina.schiller@test.de", "test12345"};
+  final _emailController =
+      TextEditingController(text: "christina.schiller@test.de");
+  final _passwordController = TextEditingController(text: "test12345");
 
   @override
   void initState() {
@@ -196,15 +199,21 @@ class _LoginScreenState extends State<LoginScreen> {
     signUp(email, password) async {
       UserCredential authResult =
           await authService.signupEmail(email, password);
+
+      // firestoreService.createUser(
+      //         new DigaUser(
+      //             displayName: "Christina Schiller",
+      //             photoURL: 'assets/images/user.png',
+      //             email: authResult.user.email,
+      //             uid: authResult.user.uid,
+      //             verified: false),
+      //       );
+
       print(authResult.user);
     }
 
     signIn(email, password) async {
-      authService.signinEmail(email, password).then(
-          (UserCredential authResult) => {
-                _token = authResult.user.refreshToken,
-                print("My TOKEN:" + authResult.user.uid)
-              });
+      await authService.signinEmail(email, password);
 
       // _authService.signOut();
     }

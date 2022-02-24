@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:property_change_notifier/property_change_notifier.dart';
 
 class OnBoardingListiner extends PropertyChangeNotifier<bool> {
-  bool _onInitApp;
-  bool get onInitApp => _onInitApp;
+  bool _showOnBoarding;
+  bool get showOnBoarding => _showOnBoarding;
 
-  set setOnInitApp(bool value) {
-    _onInitApp = value;
+  set showOnBoarding(bool value) {
+    _showOnBoarding = value;
     notifyListeners();
   }
 }
