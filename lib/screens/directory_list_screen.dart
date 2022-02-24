@@ -26,7 +26,6 @@ class _DirectoryListState extends State<DirectoryList> {
     super.initState();
     myController.text = widget.searchTerm;
     _diGAList = widget.digaList;
-    // _diGAList = firestoreService.getAllDiga();
   }
 
   @override
@@ -47,35 +46,35 @@ class _DirectoryListState extends State<DirectoryList> {
             child: FutureBuilder<List<DiGAObject>>(
                 future: firestoreService.getAllDiga(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData || _diGAList != null) {
+                  if (snapshot.hasData) {
                     return Column(
                       children: [
                         pageHeadline("Verzeichnis"),
                         buildCustomDivider(),
-                        myTextField(_diGAList, snapshot.data),
+                        myTextField(snapshot.data),
+                        // ignore: prefer_const_constructors
                         SizedBox(
                           height: 20.0,
                         ),
                         Expanded(
-                            child: new ListView.builder(
+                            child: ListView.builder(
                                 itemCount: _diGAList.length,
                                 itemBuilder: (BuildContext ctxt, int index) {
-                                  return DiGACard(diga: _diGAList[index]);
+                                  return DiGACard(
+                                    diga: _diGAList[index],
+                                    key: UniqueKey(),
+                                  );
                                 }))
                       ],
                     );
                   } else {
-                    const CircularProgressIndicator();
+                    return Center(child: const CircularProgressIndicator());
                   }
-                })
-
-            //   },
-            // ),
-            ));
+                })));
   }
 
 // BorderSide(color: accentColor)
-  Widget myTextField(data, oData) {
+  Widget myTextField(oData) {
     return Material(
         elevation: 10.0,
         borderRadius: BorderRadius.circular(8.0),
@@ -114,8 +113,10 @@ class _DirectoryListState extends State<DirectoryList> {
                 ),
                 onPressed: () {
                   setState(() {
-                    _diGAList = searchList(
-                        data != null ? data : oData, myController.text);
+                    _diGAList = searchList(oData, myController.text);
+                    for (var item in _diGAList) {
+                      print("diga: " + item.name);
+                    }
                     // myController.clear();
                   });
                 },
