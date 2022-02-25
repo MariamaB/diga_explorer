@@ -274,21 +274,21 @@ DiGAObject getQestionResponseData(Entry entryQuestionnaireResponse) {
 List<DiGAObject> searchList(List<DiGAObject> digaList, String searchTerm) {
   List<DiGAObject> searchList = <DiGAObject>[];
   for (var item in digaList) {
+    bool isInIndikations = false;
+    if (item.indikations != null || item.indikations.length > 0) {
+      for (var element in item.indikations) {
+        String indikation = element.display.toLowerCase();
+        isInIndikations = indikation.contains(searchTerm.toLowerCase())
+            ? indikation.contains(searchTerm)
+            : isInIndikations;
+      }
+    }
+
     if (item.description.toLowerCase().contains(searchTerm.toLowerCase()) ||
-        item.indikations
-            .map((e) => e.display.toLowerCase())
-            .contains(searchTerm.toLowerCase()) ||
-        item.indikations
-            .map((e) => e.code.toLowerCase())
-            .contains(searchTerm.toLowerCase())) searchList.add(item);
+        isInIndikations ||
+        item.name.toLowerCase().contains(searchTerm.toLowerCase()))
+      searchList.add(item);
   }
-  for (var item in searchList) {
-    print("diga: " + item.name);
-  }
-  print("searchTerm: " +
-      searchTerm.toLowerCase() +
-      " size: " +
-      searchList.length.toString());
-  // printDigaList(digaList);
+
   return searchList;
 }
