@@ -63,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 25,
                                   )),
-                              buildButton(null, 'Nutze dein Rezept'),
+                              buildButton(snapshot.data, 'Nutze dein Rezept'),
                             ],
                           ))
                     ],

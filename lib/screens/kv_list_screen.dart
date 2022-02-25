@@ -97,7 +97,9 @@ class _KrankenkasseListState extends State<KrankenkasseList> {
                 ),
                 onPressed: () {
                   setState(() {
-                    // doctorList = searchList(data, myController.text);
+                    krankenkasseData
+                        .forEach((e) => kVList.add(KVObject.fromJson(e)));
+                    myController.clear();
                   });
                 },
               ),
@@ -109,9 +111,7 @@ class _KrankenkasseListState extends State<KrankenkasseList> {
                 ),
                 onPressed: () {
                   setState(() {
-                    krankenkasseData
-                        .forEach((e) => kVList.add(KVObject.fromJson(e)));
-                    myController.clear();
+                    kVList = _searchKVList(myController.text);
                   });
                 },
               ),
@@ -119,5 +119,17 @@ class _KrankenkasseListState extends State<KrankenkasseList> {
           cursorColor: accentColor,
           style: TextStyle(color: Colors.black87),
         ));
+  }
+
+  _searchKVList(String searchTerm) {
+    List<KVObject> searchList = [];
+    List<KVObject> _kVList = [];
+    krankenkasseData.forEach((e) => _kVList.add(KVObject.fromJson(e)));
+    for (var item in _kVList) {
+      if (item.name.toLowerCase().contains(searchTerm.toLowerCase())) {
+        searchList.add(item);
+      }
+    }
+    return searchList;
   }
 }

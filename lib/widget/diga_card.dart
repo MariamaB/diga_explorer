@@ -134,12 +134,20 @@ class _DiGACardState extends State<DiGACard> {
   List<Widget> builderDiagnosRows(List<DiagnoseCode> indikations) {
     List<Widget> diagnoseR = <Widget>[];
     List<DiagnoseCode> shownList = <DiagnoseCode>[];
-    for (var i = 0; i < 2; i++) {
-      shownList.add(indikations != null && indikations.length > 1
-          ? indikations[i]
-          : DiagnoseCode(
-              code: "M33",
-              display: "Bisher keine Indikationsinformation hinterlegt"));
+
+    if (indikations == null || indikations.length < 1) {
+      for (var i = 0; i < 2; i++) {
+        shownList.add(DiagnoseCode(
+            code: "M33",
+            display: "Bisher keine Indikationsinformation hinterlegt"));
+      }
+    } else {
+      indikations = indikations.length == 1
+          ? indikations.take(1).toList()
+          : indikations.take(2).toList();
+      for (var item in indikations) {
+        shownList.add(item);
+      }
     }
     diagnoseR.add(SizedBox(
       height: 5,

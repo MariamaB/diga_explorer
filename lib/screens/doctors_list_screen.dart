@@ -1,5 +1,6 @@
 import 'package:diga_explorer/data/docData.dart';
 import 'package:diga_explorer/helper/helperfunctions.dart';
+import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/models/doctor_object.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:diga_explorer/widget/doctor_card.dart';
@@ -78,7 +79,9 @@ class _DoctorListState extends State<DoctorList> {
                 ),
                 onPressed: () {
                   setState(() {
-                    // doctorList = searchList(data, myController.text);
+                    doctorData.forEach(
+                        (e) => doctorList.add(DoctorObject.fromJson(e)));
+                    myController.clear();
                   });
                 },
               ),
@@ -90,9 +93,7 @@ class _DoctorListState extends State<DoctorList> {
                 ),
                 onPressed: () {
                   setState(() {
-                    doctorData.forEach(
-                        (e) => doctorList.add(DoctorObject.fromJson(e)));
-                    myController.clear();
+                    doctorList = _searchDocList(myController.text);
                   });
                 },
               ),
@@ -100,5 +101,18 @@ class _DoctorListState extends State<DoctorList> {
           cursorColor: accentColor,
           style: TextStyle(color: Colors.black87),
         ));
+  }
+
+  _searchDocList(String searchTerm) {
+    List<DoctorObject> searchList = [];
+    List<DoctorObject> _doctorList = [];
+    doctorData.forEach((e) => _doctorList.add(DoctorObject.fromJson(e)));
+    for (var item in _doctorList) {
+      if (item.fachrichtung.toLowerCase().contains(searchTerm.toLowerCase()) ||
+          item.name.toLowerCase().contains(searchTerm.toLowerCase())) {
+        searchList.add(item);
+      }
+    }
+    return searchList;
   }
 }

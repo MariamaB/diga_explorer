@@ -1,7 +1,4 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new
-
-import 'package:diga_explorer/helper/diga_converter.dart';
-import 'package:diga_explorer/helper/helperfunctions.dart';
 import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/models/diga_user.dart';
 import 'package:diga_explorer/models/on_boarding_listner.dart';
@@ -16,7 +13,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:diga_explorer/custom_icons.dart' as CustomIcon;
-import 'package:property_change_notifier/property_change_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
