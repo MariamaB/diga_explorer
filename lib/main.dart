@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diga_explorer/common/AuthenticationWrapper.dart';
+import 'package:diga_explorer/models/dashboard_listener.dart';
 import 'package:diga_explorer/services/auth_service.dart';
 import 'package:diga_explorer/services/firestore_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,8 +25,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  UserCredential user;
-
   @override
   void initState() {
     super.initState();
@@ -43,6 +42,7 @@ class _MyAppState extends State<MyApp> {
           Provider(
               create: (context) =>
                   FirestoreService(FirebaseFirestore.instance)),
+          Provider(create: (context) => AddtoDashboardListener()),
           Provider<AuthService>(
             create: (_) => AuthService(FirebaseAuth.instance),
           ),

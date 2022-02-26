@@ -37,7 +37,7 @@ import 'package:shimmer/shimmer.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key key, this.listenerWidget}) : super(key: key);
-  final OnBoardingListiner listenerWidget;
+  final OnTriggeredListener listenerWidget;
 
   @override
   Widget build(BuildContext context) {

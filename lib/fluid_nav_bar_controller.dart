@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new
 import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/models/diga_user.dart';
+import 'package:diga_explorer/models/dashboard_listener.dart';
 import 'package:diga_explorer/models/on_boarding_listner.dart';
 import 'package:diga_explorer/screens/dashboard_list_screen.dart';
 import 'package:diga_explorer/screens/home_screen.dart' show HomeScreen;
@@ -13,6 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:diga_explorer/custom_icons.dart' as CustomIcon;
+import 'package:property_change_notifier/property_change_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -31,21 +33,21 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
   Color _backgroundColor;
   String _text;
   List<DiGAObject> data;
-  final onBoardingListiner = OnBoardingListiner();
+  final onTriggeredListener = OnTriggeredListener();
   bool _showOnBoarding;
 
   DigaUser _currentUser;
   @override
   void initState() {
     super.initState();
-    onBoardingListiner.addListener(_changeView);
+    onTriggeredListener.addListener(_changeView);
     _currentUser = widget.currentUser;
     _showOnBoarding =
         _currentUser.verified != null || _currentUser.verified ? false : true;
     _text = _showOnBoarding ? "" : "Home";
     _child = _showOnBoarding
         ? OnBoardingScreen(
-            listenerWidget: onBoardingListiner,
+            listenerWidget: onTriggeredListener,
           )
         : HomeScreen();
     _backgroundColor = highlightColor;
@@ -58,7 +60,7 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
 
   _changeView() {
     setState(() {
-      _showOnBoarding = onBoardingListiner.showOnBoarding;
+      _showOnBoarding = onTriggeredListener.showOnBoarding;
       _text = "Home";
       _child = HomeScreen();
     });
@@ -225,8 +227,8 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
               title: new Text("On-Bordingpages"),
               trailing: new Icon(CustomIcon.Custom.book_open_1),
               onTap: () {
-                onBoardingListiner.showOnBoarding = true;
-                _child = OnBoardingScreen(listenerWidget: onBoardingListiner);
+                onTriggeredListener.showOnBoarding = true;
+                _child = OnBoardingScreen(listenerWidget: onTriggeredListener);
               }),
           // new Divider(),
           new ListTile(

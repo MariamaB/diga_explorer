@@ -3,16 +3,42 @@ import 'package:diga_explorer/main.dart';
 import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/screens/dashboard_diga_screen.dart';
 import 'package:diga_explorer/screens/doctors_list_screen.dart';
+import 'package:diga_explorer/services/firestore_service.dart';
 import 'package:diga_explorer/utilities/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DashboardCard extends StatelessWidget {
-  const DashboardCard({Key key, this.diga}) : super(key: key);
+import '../models/on_boarding_listner.dart';
+
+class DashboardCard extends StatefulWidget {
+  const DashboardCard({Key key, this.diga, this.viewListener})
+      : super(key: key);
   final DiGAObject diga;
+  final OnTriggeredListener viewListener;
+  @override
+  State<DashboardCard> createState() => _DashboardCardState();
+}
+
+class _DashboardCardState extends State<DashboardCard> {
+  DiGAObject _diga;
+
+  @override
+  void initState() {
+    super.initState();
+    _diga = widget.diga;
+  }
+
+  @override
+  void dispose() {
+    // firestoreService.saveDiGA(digas)
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final FirestoreService firestoreService = context.read<FirestoreService>();
+
     var url =
         "https://github.com/MariamaB/diga_explorer/raw/master/assets/pdfs/DiGA-Verzeichnis_Novego.pdf";
 
@@ -30,10 +56,15 @@ class DashboardCard extends StatelessWidget {
               ),
               tooltip: 'Füge die DiGA deinem Dashboard hinzu.',
               onPressed: () {
-                diga.inDashboard =
-                    diga.inDashboard != null || diga.inDashboard == false
-                        ? true
-                        : false;
+                setState(() {
+                  _diga.inDashboard = false;
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                          'Du hast ${_diga.name} aus deinem Dashboard entfernt')));
+
+                  widget.viewListener.showInDashboard = _diga.inDashboard;
+                });
+                firestoreService.updateOnDashboardStatus(_diga);
               },
             ),
           ),
@@ -48,7 +79,7 @@ class DashboardCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      iconBuilder(diga.icon, context),
+                      iconBuilder(_diga.icon, context),
                       SizedBox(
                         width: 18,
                       ),
@@ -63,7 +94,7 @@ class DashboardCard extends StatelessWidget {
                               SizedBox(
                                   width: 170,
                                   child: Text(
-                                    diga.name,
+                                    _diga.name,
                                     style: headlinStyleBold,
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
@@ -101,7 +132,7 @@ class DashboardCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) {
-              return DashboardDiGAScreen(diga: diga);
+              return DashboardDiGAScreen(diga: _diga);
 
               // DashboardDiGAScreen(diga: diga);
             }),
@@ -152,8 +183,8 @@ class DashboardCard extends StatelessWidget {
             ),
             tooltip: 'Mehr Informationen über diese DiGA',
             onPressed: () async {
-              if (await canLaunch(diga.directoryLink))
-                await launch(diga.directoryLink);
+              if (await canLaunch(_diga.directoryLink))
+                await launch(_diga.directoryLink);
               else
                 // can't launch url, there is some error
                 throw "Could not launch $url";

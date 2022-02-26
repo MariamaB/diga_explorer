@@ -219,12 +219,13 @@ class _DiGACardState extends State<DiGACard> {
               if (!diga.inDashboard)
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
-                        'Du hast ${diga.name} aud deinem Dashboard entfernt')));
+                        'Du hast ${diga.name} aus deinem Dashboard entfernt')));
               if (diga.inDashboard)
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
                         'Du hast ${diga.name} deinem Dashboard hinzugefügt')));
             });
+            firestoreService.updateOnDashboardStatus(diga);
           },
         ),
         SizedBox(

@@ -1,6 +1,7 @@
 import 'package:diga_explorer/models/response_body.dart';
+import 'package:flutter/material.dart';
 
-class DiGAObject {
+class DiGAObject with ChangeNotifier {
   String name;
   String id;
   String directoryLink;
@@ -8,12 +9,13 @@ class DiGAObject {
   ValueDuration anwendungsDauer;
   String kontraindikation;
   List<Platform> platforms;
-  // List<String> diagnoseCodes;
   List<DiagnoseCode> indikations;
   String description;
   String deviceDefinitionReference;
   String chargeItemDefinitionReference;
-  bool inDashboard;
+  bool _inDashboard;
+  bool get inDashboard => _inDashboard;
+
   DiGAObject(
       {this.name,
       this.id,
@@ -22,24 +24,25 @@ class DiGAObject {
       this.platforms,
       this.deviceDefinitionReference,
       this.chargeItemDefinitionReference,
-      // this.diagnoseCodes,
       this.anwendungsDauer,
       this.indikations,
       this.kontraindikation,
-      this.inDashboard,
       this.description});
+
+  set inDashboard(bool value) {
+    _inDashboard = value;
+    notifyListeners();
+  }
 
   Map<String, dynamic> toMap() {
     return {
       'name': name,
       'id': id,
       'directoryLink': directoryLink,
-      // 'deviceDefinitionReference': deviceDefinitionReference,
-      // 'chargeItemDefinitionReference': chargeItemDefinitionReference,
       'icon': icon,
       'description': description,
       'kontraindikation': kontraindikation,
-      'inDashboard': inDashboard,
+      'inDashboard': _inDashboard,
       'platforms':
           platforms != null ? platforms.map((e) => e.toMap()).toList() : null,
       'indikations': indikations != null
@@ -53,16 +56,13 @@ class DiGAObject {
   DiGAObject.fromJson(Map<String, dynamic> json) {
     platforms = <Platform>[];
     indikations = <DiagnoseCode>[];
-    // diagnoseCodes = <String>[];
 
     name = json['name'];
     id = json['id'];
     directoryLink = json['directoryLink'];
     icon = json['icon'];
     description = json['description'];
-    inDashboard = json['inDashboard'];
-    // if (json['diagnoseCodes'] != null)
-    //   json['diagnoseCodes'].forEach((v) => diagnoseCodes.add(v));
+    _inDashboard = json['inDashboard'];
     if (json['platforms'] != null)
       json['platforms'].forEach((v) => platforms.add(new Platform.fromJson(v)));
     if (json['indikations'] != null)

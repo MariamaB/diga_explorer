@@ -19,7 +19,15 @@ class FirestoreService {
     }
   }
 
-  Future<void> updateDiGA(DiGAObject diga) {
+  Future<void> updateOnDashboardStatus(DiGAObject diga) {
+    db
+        .collection('digas')
+        .doc(diga.id)
+        .update({'inDashboard': diga.inDashboard});
+    print('Updated ${diga.name} to ${diga.inDashboard}');
+  }
+
+  Future<void> updateDiGA(diga) {
     db.collection('digas').doc(diga.id).update({
       'name': diga.name,
       'directoryLink': diga.directoryLink,

@@ -23,7 +23,7 @@ class AuthenticationWrapper extends StatelessWidget {
           if (snapshot.hasData) {
             print('User: ${snapshot.data.toMap().toString()}');
             return PropertyChangeProvider(
-                value: OnBoardingListiner(),
+                value: OnTriggeredListener(),
                 child: FluidNavBarController(currentUser: snapshot.data));
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
