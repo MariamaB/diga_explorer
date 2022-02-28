@@ -197,6 +197,8 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
             accountName: new Text(_currentUser.displayName),
             currentAccountPicture: new GestureDetector(
               child: new CircleAvatar(
+                // Source of photoURL
+                // https://page-online.de/branche-karriere/frauen-sind-leider-oft-etwas-zu-selbstkritisch-mit-sich/
                 backgroundImage: AssetImage(_currentUser.photoURL),
                 // backgroundImage: new NetworkImage(_currentUser.photoURL),
               ),

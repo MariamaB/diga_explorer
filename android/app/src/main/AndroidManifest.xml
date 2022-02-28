@@ -23,7 +23,9 @@
             <data android:mimeType="*/*" />
         </intent>
     </queries>
-    <application android:label="DiGAExplorer" android:icon="@mipmap/ic_launcher">
+    <!--Source of App Icon
+    https://www.freepik.com/free-vector/medical-service-logos-vector-set_3750255.htm#&position=2&from_view=detail#&position=2&from_view=detail-->
+    <application android:label="DiGAExplorer" android:icon="@mipmap/ic_launcher2">
         <activity android:name=".MainActivity" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize" android:exported="true">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
