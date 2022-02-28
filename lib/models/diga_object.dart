@@ -13,8 +13,8 @@ class DiGAObject with ChangeNotifier {
   String description;
   String deviceDefinitionReference;
   String chargeItemDefinitionReference;
-  bool _inDashboard;
-  bool get inDashboard => _inDashboard;
+  bool inDashboard;
+  String pdf;
 
   DiGAObject(
       {this.name,
@@ -27,12 +27,14 @@ class DiGAObject with ChangeNotifier {
       this.anwendungsDauer,
       this.indikations,
       this.kontraindikation,
+      this.inDashboard,
+      this.pdf,
       this.description});
 
-  set inDashboard(bool value) {
-    _inDashboard = value;
-    notifyListeners();
-  }
+  // set inDashboard(bool value) {
+  //   _inDashboard = value;
+  //   notifyListeners();
+  // }
 
   Map<String, dynamic> toMap() {
     return {
@@ -42,7 +44,8 @@ class DiGAObject with ChangeNotifier {
       'icon': icon,
       'description': description,
       'kontraindikation': kontraindikation,
-      'inDashboard': _inDashboard,
+      'inDashboard': inDashboard,
+      'pdf': pdf,
       'platforms':
           platforms != null ? platforms.map((e) => e.toMap()).toList() : null,
       'indikations': indikations != null
@@ -62,7 +65,10 @@ class DiGAObject with ChangeNotifier {
     directoryLink = json['directoryLink'];
     icon = json['icon'];
     description = json['description'];
-    _inDashboard = json['inDashboard'];
+    inDashboard = json['inDashboard'];
+    pdf = json['pdf'];
+    // if (json['diagnoseCodes'] != null)
+    //   json['diagnoseCodes'].forEach((v) => diagnoseCodes.add(v));
     if (json['platforms'] != null)
       json['platforms'].forEach((v) => platforms.add(new Platform.fromJson(v)));
     if (json['indikations'] != null)

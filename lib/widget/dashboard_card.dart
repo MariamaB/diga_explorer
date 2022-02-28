@@ -99,7 +99,7 @@ class _DashboardCardState extends State<DashboardCard> {
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                   )),
-                              buildButtonRow(url, context),
+                              buildButtonRow(_diga.pdf, context),
                             ],
                           )),
                     ],

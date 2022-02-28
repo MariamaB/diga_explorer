@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new
 import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/models/diga_user.dart';
-import 'package:diga_explorer/models/dashboard_listener.dart';
 import 'package:diga_explorer/models/on_boarding_listner.dart';
 import 'package:diga_explorer/screens/dashboard_list_screen.dart';
 import 'package:diga_explorer/screens/home_screen.dart' show HomeScreen;

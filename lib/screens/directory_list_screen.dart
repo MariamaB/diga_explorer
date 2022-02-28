@@ -1,6 +1,5 @@
 import 'package:diga_explorer/helper/diga_converter.dart';
 import 'package:diga_explorer/helper/helperfunctions.dart';
-import 'package:diga_explorer/models/dashboard_listener.dart';
 import 'package:diga_explorer/models/diga_object.dart';
 import 'package:diga_explorer/services/firestore_service.dart';
 import 'package:diga_explorer/utilities/constants.dart';

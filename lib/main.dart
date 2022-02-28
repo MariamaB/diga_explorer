@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
           Provider(
               create: (context) =>
                   FirestoreService(FirebaseFirestore.instance)),
-          Provider(create: (context) => AddtoDashboardListener()),
+          // Provider(create: (context) => AddtoDashboardListener()),
           Provider<AuthService>(
             create: (_) => AuthService(FirebaseAuth.instance),
           ),
