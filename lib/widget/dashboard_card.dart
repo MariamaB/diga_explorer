@@ -68,7 +68,7 @@ class DashboardCard extends StatelessWidget {
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                   )),
-                              buildButtonRow(url, context),
+                              buildButtonRow(diga.pdf, context),
                             ],
                           )),
                     ],

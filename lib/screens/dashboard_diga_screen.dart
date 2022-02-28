@@ -100,7 +100,7 @@ class _DashboardDiGAScreenState extends State<DashboardDiGAScreen> {
                                 SizedBox(
                                   height: 20.0,
                                 ),
-                                buildButtonRow(url, context),
+                                buildButtonRow(_diga.pdf, context),
                                 Container(
                                   margin: EdgeInsets.only(top: 8, bottom: 10),
                                   width: 200,
