@@ -48,6 +48,13 @@ final headlinStyleBoldBig = const TextStyle(
   fontFamily: 'Custom',
 );
 
+final headlinStyleBoldBigig = const TextStyle(
+  fontWeight: FontWeight.bold,
+  color: textColor,
+  fontSize: 30,
+  fontFamily: 'Custom',
+);
+
 final declarationTextStyle = const TextStyle(
   fontWeight: FontWeight.bold,
   color: textColor,
