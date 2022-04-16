@@ -7,9 +7,25 @@ import 'package:diga_explorer/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DashboardCard extends StatelessWidget {
-  const DashboardCard({Key key, this.diga}) : super(key: key);
+class DashboardCard extends StatefulWidget {
   final DiGAObject diga;
+  final ValueChanged onChange;
+
+  const DashboardCard({Key key, this.diga, this.onChange}) : super(key: key);
+  @override
+  State<DashboardCard> createState() => _DashboardCardState();
+}
+
+class _DashboardCardState extends State<DashboardCard> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +44,13 @@ class DashboardCard extends StatelessWidget {
                 color: accentColor,
                 size: 30,
               ),
-              tooltip: 'Füge die DiGA deinem Dashboard hinzu.',
+              tooltip: 'Entferne ${widget.diga.name} aus deinem Dashboard',
               onPressed: () {
-                diga.inDashboard =
-                    diga.inDashboard != null || diga.inDashboard == false
-                        ? true
-                        : false;
+                widget.diga.inDashboard = false;
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                        'Du hast ${widget.diga.name} aus deinem Dashboard entfernt')));
+                widget.onChange(widget.diga);
               },
             ),
           ),
@@ -48,7 +65,7 @@ class DashboardCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      iconBuilder(diga.icon, context),
+                      iconBuilder(widget.diga.icon, context),
                       SizedBox(
                         width: 18,
                       ),
@@ -63,12 +80,12 @@ class DashboardCard extends StatelessWidget {
                               SizedBox(
                                   width: 170,
                                   child: Text(
-                                    diga.name,
+                                    widget.diga.name,
                                     style: headlinStyleBold,
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                   )),
-                              buildButtonRow(diga.pdf, context),
+                              buildButtonRow(widget.diga.pdf, context),
                             ],
                           )),
                     ],
@@ -101,7 +118,7 @@ class DashboardCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) {
-              return DashboardDiGAScreen(diga: diga);
+              return DashboardDiGAScreen(diga: widget.diga);
 
               // DashboardDiGAScreen(diga: diga);
             }),
@@ -152,8 +169,8 @@ class DashboardCard extends StatelessWidget {
             ),
             tooltip: 'Mehr Informationen über diese DiGA',
             onPressed: () async {
-              if (await canLaunch(diga.directoryLink))
-                await launch(diga.directoryLink);
+              if (await canLaunch(widget.diga.directoryLink))
+                await launch(widget.diga.directoryLink);
               else
                 // can't launch url, there is some error
                 throw "Could not launch $url";

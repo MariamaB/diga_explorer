@@ -13,24 +13,17 @@ class FirestoreService {
   var uuid = Uuid();
 
   Future<void> saveDiGA(List<DiGAObject> digas) {
+    // var seen = Set<String>();
+    // List<DiGAObject> uniquelist =
+    //     digas.where((diga) => seen.add(diga.name.toString())).toList();
     for (var diga in digas) {
-      diga.id = uuid.v4();
+      // diga.id = diga.id == null ? uuid.v4() : diga.id;
       db.collection('digas').doc(diga.id).set(diga.toMap());
     }
   }
 
   Future<void> updateDiGA(DiGAObject diga) {
-    db.collection('digas').doc(diga.id).update({
-      'name': diga.name,
-      'directoryLink': diga.directoryLink,
-      'description': diga.description,
-      if (diga.platforms[0].platform.length > 1)
-        '${diga.platforms[0].platform}': diga.platforms[0].linkToPlatform,
-      if (diga.platforms[1].platform.length > 1)
-        '${diga.platforms[1].platform}': diga.platforms[1].linkToPlatform,
-      if (diga.platforms[2].platform.length > 1)
-        '${diga.platforms[2].platform}': diga.platforms[2].linkToPlatform,
-    });
+    db.collection('digas').doc(diga.id).update(diga.toMap());
   }
 
   Future<DiGAObject> getDiga(String digaId) {

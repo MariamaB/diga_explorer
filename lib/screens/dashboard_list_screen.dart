@@ -11,6 +11,7 @@ class DashboardList extends StatefulWidget {
 }
 
 class _DashboardListState extends State<DashboardList> {
+  List<DiGAObject> list;
   @override
   void initState() {
     super.initState();
@@ -28,11 +29,21 @@ class _DashboardListState extends State<DashboardList> {
         future: firestoreService.getAllDiga(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
+            list = buildDashboardlist(snapshot.data);
             return Container(
-                child: ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext ctxt, int index) =>
-                        DashboardCard(diga: snapshot.data[index])));
+              child: ListView.builder(
+                itemCount: list.length,
+                itemBuilder: (BuildContext ctxt, int index) => DashboardCard(
+                    key: UniqueKey(),
+                    diga: list[index],
+                    onChange: (value) {
+                      setState(() {
+                        firestoreService.updateDiGA(value);
+                        print("State update: " + value.name);
+                      });
+                    }),
+              ),
+            );
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
@@ -41,6 +52,10 @@ class _DashboardListState extends State<DashboardList> {
         },
       ),
     );
+  }
+
+  buildDashboardlist(List<DiGAObject> list) {
+    return list.where((DiGAObject element) => element.inDashboard).toList();
   }
 }
 

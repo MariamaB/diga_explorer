@@ -30,6 +30,7 @@ class _DirectoryListState extends State<DirectoryList> {
 
   @override
   void dispose() {
+    firestoreService.saveDiGA(_diGAList);
     super.dispose();
   }
 
