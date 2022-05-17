@@ -1,5 +1,6 @@
 import 'package:diga_explorer/helper/diga_converter.dart';
 import 'package:diga_explorer/models/diga_object.dart';
+import 'package:diga_explorer/utilities/constants.dart';
 import 'package:diga_explorer/widget/dashboard_card.dart';
 import 'package:flutter/material.dart';
 
@@ -47,8 +48,14 @@ class _DashboardListState extends State<DashboardList> {
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
-          return const Text(
-              "Füge deinem Dashboard eine DiGA hinzu, die dich interessiert um weitere Schritte vorzunehmen!");
+          return Container(
+              color: primaryColor,
+              child: Center(
+                  child: CircularProgressIndicator(
+                color: accentColor,
+              )));
+          // return const Text(
+          //     "Füge deinem Dashboard eine DiGA hinzu, die dich interessiert um weitere Schritte vorzunehmen!");
         },
       ),
     );

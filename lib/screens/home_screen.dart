@@ -32,22 +32,25 @@ class HomeScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(color: accentColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                          // alignment: Alignment.center,
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(kWhite),
-                          fixedSize:
-                              MaterialStateProperty.all<Size>(Size(200, 60))),
-                      child: Text(
-                        "Mehr über das Thema DiGA",
-                        style: TextStyle(
-                            color: accentColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400),
-                        textAlign: TextAlign.center,
-                      ),
-                    ))
+                    child: Tooltip(
+                        message: "Function currently disabled!",
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              // alignment: Alignment.center,
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(kWhite),
+                              fixedSize: MaterialStateProperty.all<Size>(
+                                  Size(200, 60))),
+                          child: Text(
+                            "Mehr über das Thema DiGA",
+                            style: TextStyle(
+                                color: accentColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400),
+                            textAlign: TextAlign.center,
+                          ),
+                          onPressed: null,
+                        )))
               ],
             )
             // Center(
@@ -81,26 +84,30 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              textStyle: MaterialStateProperty.all<TextStyle>(
-                  TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              backgroundColor: MaterialStateProperty.all<Color>(accentColor),
-              fixedSize: MaterialStateProperty.all<Size>(Size(300, 60))),
-          onPressed: () {
-            // if (data != null) {
-            //   Navigator.push(
-            //     context,
-            //     MaterialPageRoute(builder: (context) {
-            //       return DirectoryList(
-            //         digaList: data,
-            //         searchTerm: "",
-            //       );
-            //     }),
-            //   );
-            // }
-          },
-          child: Text(text),
-        ));
+        child: Tooltip(
+            message: "Function currently disabled!",
+            child: ElevatedButton(
+              style: ButtonStyle(
+                  textStyle: MaterialStateProperty.all<TextStyle>(
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(accentColor),
+                  fixedSize: MaterialStateProperty.all<Size>(Size(300, 60))),
+              onPressed: null,
+              // () {
+              // if (data != null) {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(builder: (context) {
+              //       return DirectoryList(
+              //         digaList: data,
+              //         searchTerm: "",
+              //       );
+              //     }),
+              //   );
+              // }
+              // },
+              child: Text(text),
+            )));
   }
 }

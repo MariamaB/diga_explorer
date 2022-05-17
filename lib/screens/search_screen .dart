@@ -80,19 +80,21 @@ class _SearchScreenState extends State<SearchScreen> {
               TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           backgroundColor: MaterialStateProperty.all<Color>(accentColor),
           fixedSize: MaterialStateProperty.all<Size>(Size(300, 60))),
-      onPressed: () {
-        if (data != null) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return DirectoryList(
-                digaList: data,
-                searchTerm: "",
-              );
-            }),
-          );
-        }
-      },
+      onPressed: text == "Nutze dein Rezept"
+          ? null
+          : () {
+              if (data != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return DirectoryList(
+                      digaList: data,
+                      searchTerm: "",
+                    );
+                  }),
+                );
+              }
+            },
       child: Text(text),
     );
   }
