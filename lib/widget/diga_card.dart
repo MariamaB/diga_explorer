@@ -24,7 +24,7 @@ class _DiGACardState extends State<DiGACard> {
 
   @override
   void dispose() {
-    // firestoreService.saveDiGA(digas)
+    // firestoreService.saveDiGA(digas);
     super.dispose();
   }
 
@@ -202,7 +202,7 @@ class _DiGACardState extends State<DiGACard> {
         ),
         IconButton(
           icon: Icon(
-            diga.inDashboard == null || diga.inDashboard == false
+            widget.diga.inDashboard == null || widget.diga.inDashboard == false
                 ? CustomIcon.Custom.plus_circled
                 : CustomIcon.Custom.ok_circle,
             color: accentColor,
@@ -211,16 +211,16 @@ class _DiGACardState extends State<DiGACard> {
           tooltip: 'Füge die DiGA deinem Dashboard hinzu.',
           onPressed: () {
             setState(() {
-              diga.inDashboard =
-                  diga.inDashboard == null || diga.inDashboard == false
-                      ? true
-                      : false;
+              widget.diga.inDashboard = widget.diga.inDashboard == null ||
+                      widget.diga.inDashboard == false
+                  ? true
+                  : false;
 
-              if (!diga.inDashboard)
+              if (!widget.diga.inDashboard)
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
-                        'Du hast ${diga.name} aud deinem Dashboard entfernt')));
-              if (diga.inDashboard)
+                        'Du hast ${diga.name} aus deinem Dashboard entfernt')));
+              if (widget.diga.inDashboard)
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
                         'Du hast ${diga.name} deinem Dashboard hinzugefügt')));

@@ -193,10 +193,16 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
       child: new ListView(
         children: <Widget>[
           new UserAccountsDrawerHeader(
-            accountEmail: new Text(_currentUser.email),
-            accountName: new Text(_currentUser.displayName),
+            accountEmail: new Text(
+              _currentUser.email,
+              style: TextStyle(color: Colors.black45),
+            ),
+            accountName: new Text(_currentUser.displayName,
+                style: TextStyle(color: Colors.black87)),
             currentAccountPicture: new GestureDetector(
               child: new CircleAvatar(
+                // Source of photoURL
+                // https://page-online.de/branche-karriere/frauen-sind-leider-oft-etwas-zu-selbstkritisch-mit-sich/
                 backgroundImage: AssetImage(_currentUser.photoURL),
                 // backgroundImage: new NetworkImage(_currentUser.photoURL),
               ),
@@ -211,8 +217,10 @@ class _FluidNavBarControllerState extends State<FluidNavBarController> {
             // ),
             // ],
             decoration: new BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey)),
                 image: new DecorationImage(
-                    image: AssetImage("assets/images/backgroundImage.jpg"),
+                    image: AssetImage("assets/background.JPG"),
+                    // image: AssetImage("assets/images/backgroundImage.jpg"),
                     fit: BoxFit.fill)),
           ),
           new ListTile(
